@@ -107,7 +107,7 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../Siswa/indexSiswa.php?page=inputdataSiswa" class="nav-link">
+                            <a href="../CheckIn/inputDataSiswa.php" class="nav-link">
                                 <i class="nav-icon fa-solid fa-qrcode"></i>
                                 <p>
                                     CheckIn di Sini
@@ -119,6 +119,14 @@ session_start();
                                 <i class="nav-icon fa-solid fa-chalkboard-user"></i>
                                 <p>
                                     Form Izin Tidak Hadir
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/conf/logout.php" class="nav-link">
+                                <i class="nav-icon fa-solid fa-logout"></i>
+                                <p>
+                                    Logout
                                 </p>
                             </a>
                         </li>
