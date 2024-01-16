@@ -10,7 +10,8 @@ session_start();
     <title>Opticheck</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../app/plugins/fontawesome-free/css/all.min.css">
     <script src="https://kit.fontawesome.com/79ba4adbee.js" crossorigin="anonymous"></script>
@@ -34,6 +35,17 @@ session_start();
     <link rel="stylesheet" href="../../app/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../app/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="../../app/dist/css/adminlte.min.css">
+
+    <!-- Script QR Code using qrcode.js -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+    <style>
+        #qrcode {
+            text-align: center;
+            margin-top: 20px; /* Sesuaikan sesuai kebutuhan Anda */
+        }
+    </style>
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -65,7 +77,8 @@ session_start();
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light-bold">Opticheck</span>
             </a>
 
@@ -84,7 +97,8 @@ session_start();
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                            aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -95,7 +109,8 @@ session_start();
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
@@ -137,74 +152,44 @@ session_start();
             <!-- /.sidebar -->
         </aside>
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-    </section>
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            <!-- left column -->
-            <div class="col-md-12">
-                <!-- general form elements -->
-                <div class="card box box-primary">
-                    <!-- /.box-header -->
-                    <div class="card-header box-header">
-                        <h2>Tampilkan QR Code</h2>
-                    </div>
-                    <div class="card-body">
-                        <!-- form start -->
-                        <form role="form" method="post" action="" id="qrForm" onsubmit="generateQRCode(); return false;">
-                            <!-- setting aksi untuk tombol simpan -->
-                            <div class="box-body">
-                                <?php
-                                function encryptData($data, $key)
-                                {
-                                    $method = 'aes-256-cbc';
-                                    $ivLength = openssl_cipher_iv_length($method);
-                                    $iv = openssl_random_pseudo_bytes($ivLength);
-                                    $encrypted = openssl_encrypt($data, $method, $key, 0, $iv);
-                                    return base64_encode($iv . $encrypted);
-                                }
-
-                                // Handle form submission
-                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                    $nis = $_POST['nis'];
-
-                                    // Enkripsi data sebelum dimasukkan ke dalam QR Code
-                                    $encryptedNIS = encryptData($nis, date('Y-m-d'));
-                                    echo "Encrypted NIS: $encryptedNIS";
-
-                                    echo "<p>Gambar QR Code Anda:</p>";
-                                    echo "<div id='qrCodeContainer'></div>";
-                                    echo "<input type='hidden' name='qrData' value='$encryptedNIS'>";
-                                } else {
-                                    // Form belum disubmit
-                                    echo "<p>Masukkan Nomor Induk Siswa kalian untuk menampilkan QR Code Anda.</p>";
-                                    echo "<div class='form-group'>";
-                                    echo "<label>Nomor Induk Siswa</label>";
-                                    echo "<input type='text' name='nis' class='form-control' placeholder='NIS' required>";
-                                    echo "</div>";
-                                }
-                                ?>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-12">
+                        <!-- general form elements -->
+                        <div class="card box box-primary">
+                            <!-- /.box-header -->
+                            <div class="card-header box-header">
+                                <h2>Tampilkan QR Code</h2>
                             </div>
-                            <!-- /.box-body -->
-                            <div class="card-footer box-footer">
-                                <button type="submit" class="btn btn-primary" title="Simpan Data">
-                                    <i class="glyphicon glyphicon-floppy-disk"></i>Generate
-                                </button>
+                            <div class="card-body">
+                                <!-- form start -->
+                                <div class="box-body">
+                                    <p>Masukkan Nomor Induk Siswa kalian untuk menampilkan QR Code Anda.</p>
+                                    <input class='form-control' type="text" id="inputText" placeholder="Masukkan NIS" />
+                                    <br>
+                                    <button class='btn btn-primary' onclick="generateQRCode()">Buat QR Code</button> 
+                                </div>
+
+                                <div  class="box-body">
+                                <div id="qrcode"></div>
+                                </div>
+                                <!-- /.box-body -->
                             </div>
-                        </form>
+                            <!-- /.box -->
+                        </div>
                     </div>
-                    <!-- /.box -->
                 </div>
-            </div>
+            </section>
+            <!-- /.content -->
         </div>
-    </section>
-    <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+        <!-- /.content-wrapper -->
 
         <!-- /.content-wrapper -->
         <footer class="main-footer">
@@ -223,24 +208,17 @@ session_start();
     </div>
     <!-- ./wrapper -->
 
-    <!-- Script QR Code -->
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script>
-        function generateQRCode() {
-            var nis = document.getElementById('qrForm').elements['nis'].value;
-            var encryptedNIS = btoa(unescape(encodeURIComponent(nis)));
-            
-            var qrCodeContainer = document.getElementById('qrCodeContainer');
-            qrCodeContainer.innerHTML = 'qrCodeContainer';
-
-            var qrcode = new QRCode(qrCodeContainer, {
-                text: encryptedNIS,
-                width: 150,
-                height: 150
-            });
-        }
+    function generateQRCode() {
+        var textToEncode = document.getElementById("inputText").value;
+        console.log(textToEncode);
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: textToEncode,
+            width: 128,
+            height: 128,
+        });
+    }
     </script>
-
 </body>
 
 </html>
