@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +10,7 @@ session_start();
     <title>Opticheck</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../app/plugins/fontawesome-free/css/all.min.css">
     <script src="https://kit.fontawesome.com/79ba4adbee.js" crossorigin="anonymous"></script>
@@ -53,28 +52,14 @@ session_start();
     </div>-->
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
-            </ul>
-        </nav>
+
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light-bold">Opticheck</span>
             </a>
 
@@ -93,8 +78,7 @@ session_start();
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -105,8 +89,7 @@ session_start();
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
@@ -129,7 +112,7 @@ session_start();
                             <a href="?page=data_izin" class="nav-link">
                                 <i class="nav-icon fa-solid fa-chalkboard-user"></i>
                                 <p>
-                                    Form Izin Tidak Hadir
+                                    Form Izin / Tidak Hadir
                                 </p>
                             </a>
                         </li>
@@ -170,12 +153,11 @@ session_start();
                                     <p>Masukkan Nomor Induk Siswa kalian untuk menampilkan QR Code Anda.</p>
                                     <input class='form-control' type="text" id="inputText" placeholder="Masukkan NIS" />
                                     <br>
-                                    <button class='btn btn-primary' onclick="generateQRCode()">Buat QR Code</button> 
+                                    <button class='btn btn-primary' onclick="generateQRCode()">Buat QR Code</button>
                                 </div>
 
                                 <!-- Modal untuk menampilkan QR Code -->
-                                <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -202,12 +184,7 @@ session_start();
         </div>
         <!-- /.content-wrapper -->
 
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2023 <a href="https://adminlte.io">Syahrina Dini Caesara</a>.</strong>
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
-            </div>
-        </footer>
+
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -246,8 +223,8 @@ session_start();
             $('#qrCodeModal').modal('show');
         }
     </script>
-<!-- jQuery -->
-<script src="../../app/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="../../app/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="../../app/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

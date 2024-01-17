@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,21 +48,6 @@ session_start();
       <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
     </div>-->
 
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
-            </ul>
-        </nav>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
@@ -112,7 +97,7 @@ session_start();
                         <li class="nav-item">
                             <a href="?page=data_siswa" class="nav-link">
                                 <i class="nav-icon fa-solid fa-graduation-cap"></i>
-                                <p> 
+                                <p>
                                     Data Siswa
                                 </p>
                             </a>
@@ -153,7 +138,7 @@ session_start();
                                 <div class="box-body">
                                     <p>Klik tombol dibawah ini untuk melakukan scan</p>
                                     <br>
-                                    
+
                                     <button class='btn btn-primary' onclick="startScanner()">Aktifkan Kamera</button>
                                 </div>
 
@@ -177,14 +162,6 @@ session_start();
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2023 <a href="https://adminlte.io">Syahrina Dini Caesara</a>.</strong>
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
-            </div>
-        </footer>
-
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
 
@@ -200,8 +177,10 @@ session_start();
         function startScanner() {
             // Inisialisasi Instascan hanya jika belum dilakukan sebelumnya
             if (!scanner) {
-                scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-                
+                scanner = new Instascan.Scanner({
+                    video: document.getElementById('preview')
+                });
+
                 scanner.addListener('scan', function(encodedContent) {
                     let decryptedContent = atob(encodedContent);
                     document.getElementById('result').innerHTML = `Hasil (Dekripsi): ${decryptedContent}`;

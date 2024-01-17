@@ -107,7 +107,7 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../CheckIn/qrcode.php" class="nav-link">
+                            <a href="?page=qrcode" class="nav-link">
                                 <i class="nav-icon fa-solid fa-qrcode"></i>
                                 <p>
                                     CheckIn di Sini
@@ -118,7 +118,7 @@ session_start();
                             <a href="?page=data_izin" class="nav-link">
                                 <i class="nav-icon fa-solid fa-chalkboard-user"></i>
                                 <p>
-                                    Form Izin Tidak Hadir
+                                    Form Izin / Tidak Hadir
                                 </p>
                             </a>
                         </li>
@@ -138,7 +138,7 @@ session_start();
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <!-- Data Obat-->
+        <!-- Setting Link Halaman -->
         <div class="cart">
             <?php
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -149,6 +149,8 @@ session_start();
                         include __DIR__ . "/../../pages/izinSiswa/ubah_izin.php";
                     } elseif ($_GET['page'] == 'inputdataSiswa') {
                         include __DIR__ . "/../../pages/CheckIn/inputdataSiswa.php";
+                    } elseif ($_GET['page'] == 'qrcode') {
+                        include __DIR__ . "/../../pages/CheckIn/qrcode.php"; // Memanggil halaman untuk membuat qr code nama file : qrcode.php
                     } else {
                         include __DIR__ . "/../../pages/izinSiswa/data_izin.php"; //
                     }
@@ -158,9 +160,9 @@ session_start();
             }
             ?>
         </div>
-        <!-- /Data Obat-->
+        <!-- /Setting Link Halaman -->
 
-        <!--Data Pasien-->
+        <!-- /Conten-->
 
         <!-- /.content-wrapper -->
         <footer class="main-footer">

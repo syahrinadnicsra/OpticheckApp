@@ -98,11 +98,11 @@ session_start();
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                            <li class="nav-item">
-                            <a href="?page=data_siswa" class="nav-link">
-                                <i class="nav-icon fa-solid fa-graduation-cap"></i>
-                                <p> 
-                                    Data Siswa
+                        <li class="nav-item">
+                            <a href="?page=scan" class="nav-link">
+                                <i class="nav-icon fa-solid fa-camera"></i>
+                                <p>
+                                    Scan QRcode
                                 </p>
                             </a>
                         </li>
@@ -143,6 +143,8 @@ session_start();
                         include __DIR__ . "/../../pages/data_pasien/data_pasien.php";
                     } elseif ($_GET['page'] == 'data_dokter') {
                         include __DIR__ . "/../../pages/data_dokter/data_dokter.php";
+                    } elseif ($_GET['page'] == 'scan') {
+                        include __DIR__ . "/../../pages/Admin/scan.php";
                     } else {
                         include __DIR__ . "/../../pages/dataSiswa/data_siswa.php"; //
                     }
