@@ -107,7 +107,7 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../CheckIn/inputDataSiswa.php" class="nav-link">
+                            <a href="../CheckIn/qrcode.php" class="nav-link">
                                 <i class="nav-icon fa-solid fa-qrcode"></i>
                                 <p>
                                     CheckIn di Sini
