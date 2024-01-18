@@ -14,7 +14,8 @@
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../app/plugins/fontawesome-free/css/all.min.css">
     <script src="https://kit.fontawesome.com/79ba4adbee.js" crossorigin="anonymous"></script>
@@ -54,7 +55,8 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light-bold">Opticheck</span>
             </a>
 
@@ -73,7 +75,8 @@
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                            aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -84,7 +87,8 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="?page=scan" class="nav-link">
@@ -129,17 +133,21 @@
                     <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="card box box-primary">
-                            <!-- /.box-header -->
+                            <!-- ... Bagian header card ... -->
                             <div class="card-header box-header">
                                 <h2>Scan QR Code</h2>
                             </div>
                             <div class="card-body">
-                                <!-- form start -->
+                                <!-- ... Bagian form ... -->
                                 <div class="box-body">
                                     <p>Klik tombol dibawah ini untuk melakukan scan</p>
                                     <br>
 
+                                    <!-- Tombol Aktifkan Kamera -->
                                     <button class='btn btn-primary' onclick="startScanner()">Aktifkan Kamera</button>
+
+                                    <!-- Tombol Matikan Kamera -->
+                                    <button class='btn btn-danger' onclick="stopScanner()">Matikan Kamera</button>
                                 </div>
 
                                 <div class="box-body">
@@ -151,7 +159,7 @@
                                     <br>
                                     <div id="result"></div>
                                 </div>
-                                <!-- /.box-body -->
+                                <!-- ... Bagian body card ... -->
                             </div>
                             <!-- /.box -->
                         </div>
@@ -172,42 +180,80 @@
     <!-- ./wrapper -->
 
     <script>
-        let scanner;
+    let scanner;
 
-        function startScanner() {
-            // Inisialisasi Instascan hanya jika belum dilakukan sebelumnya
-            if (!scanner) {
-                scanner = new Instascan.Scanner({
-                    video: document.getElementById('preview')
-                });
+    function startScanner() {
+    if (!scanner) {
+        scanner = new Instascan.Scanner({
+            video: document.getElementById('preview')
+        });
 
-                scanner.addListener('scan', function(encodedContent) {
-                    let decryptedContent = atob(encodedContent);
-                    document.getElementById('result').innerHTML = `Hasil (Dekripsi): ${decryptedContent}`;
-                });
-            }
+        scanner.addListener('scan', function(encodedContent) {
+            let decryptedContent = atob(encodedContent);
+            document.getElementById('result').innerHTML = `Hasil (Dekripsi): ${decryptedContent}`;
 
-            // Meminta izin kamera
-            Instascan.Camera.getCameras().then(function(cameras) {
-                if (cameras.length > 0) {
-                    // Menampilkan video setelah mendapatkan izin
-                    document.getElementById('preview').style.display = 'block';
-                    scanner.start(cameras[0]);
-                } else {
-                    console.error('Tidak ada kamera yang ditemukan.');
-                }
-            }).catch(function(e) {
-                console.error(e);
-            });
+            // Panggil fungsi simpanData secara otomatis
+            simpanData();
+        });
+    }
+
+    Instascan.Camera.getCameras().then(function(cameras) {
+        if (cameras.length > 0) {
+            document.getElementById('preview').style.display = 'block';
+            scanner.start(cameras[0]);
+        } else {
+            console.error('Tidak ada kamera yang ditemukan.');
         }
+    }).catch(function(e) {
+        console.error(e);
+    });
+}
+
+function simpanData() {
+    var hasilScan = document.getElementById('result').innerText;
+
+    var hasilArray = hasilScan.split('|');
+    var nis = hasilArray[0];
+    var tanggalJam = hasilArray[1];
+
+    var tanggalJamArray = tanggalJam.split('|');
+    var tanggal = tanggalJamArray[0];
+    var jam = tanggalJamArray[1];
+
+    $.ajax({
+        type: 'POST',
+        url: '../CheckIn/simpan_data.php',
+        data: {
+            nis: nis,
+            tanggal: tanggal,
+            jam: jam
+        },
+        success: function(response) {
+            alert('Data berhasil disimpan!');
+        },
+        error: function(error) {
+            console.error('Error:', error);
+            alert('Gagal menyimpan data.');
+        }
+    });
+}
+
+    function stopScanner() {
+        if (scanner) {
+            scanner.stop();
+            document.getElementById('preview').style.display = 'none';
+            document.getElementById('result').innerHTML = ''; // Bersihkan hasil scan
+        }
+    }
     </script>
+
     <!-- jQuery -->
     <script src="../../app/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="../../app/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-        $.widget.bridge('uibutton', $.ui.button)
+    $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
     <script src="../../app/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

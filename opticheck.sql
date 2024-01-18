@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3307
--- Generation Time: Jan 13, 2024 at 09:10 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Jan 18, 2024 at 10:34 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,8 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `checkin` (
   `id` int(11) NOT NULL,
-  `nis` int(35) NOT NULL
+  `nis` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `jam` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `checkin`
+--
+
+INSERT INTO `checkin` (`id`, `nis`, `tanggal`, `jam`) VALUES
+(1, 0, '0000-00-00', '0000-00-00 00:00:00'),
+(2, 0, '0000-00-00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -130,15 +140,18 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `nama` varchar(35) NOT NULL,
   `username` varchar(25) NOT NULL,
-  `password` varchar(25) NOT NULL
+  `password` varchar(25) NOT NULL,
+  `role` varchar(10) NOT NULL,
+  `created_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nama`, `username`, `password`) VALUES
-(1, 'Admin', 'admin', '101010');
+INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `created_date`) VALUES
+(1, 'Admin', 'admin', '101010', 'admin', '2024-01-18'),
+(2, 'AFRISKA PUTRI APRILIANA', '2110809', '101010', 'siswa', '2024-01-18');
 
 --
 -- Indexes for dumped tables
@@ -188,7 +201,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `checkin`
 --
 ALTER TABLE `checkin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `izinsiswa`
@@ -218,7 +231,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

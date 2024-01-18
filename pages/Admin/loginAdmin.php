@@ -26,7 +26,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Log in Admin</p>
 
-                <form action="../../conf/auth_loginAdmin.php" method="post">
+                <form action="../../conf/auth_login.php" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Username" name="username">
                         <div class="input-group-append">

@@ -115,10 +115,10 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?page=data_guru" class="nav-link">
-                                <i class="nav-icon fa-solid fa-chalkboard-user"></i>
+                            <a href="../../conf/logout.php" class="nav-link">
+                                <i class="nav-icon fa-solid fa-logout"></i>
                                 <p>
-                                    Data Guru
+                                    Logout
                                 </p>
                             </a>
                         </li>
