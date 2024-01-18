@@ -13,7 +13,6 @@ if (!$conn) {
 //echo "Koneksi ke database sukses..";
 
 // Terima data dari AJAX
-// Terima data dari AJAX
 $nis = isset($_POST['nis']) ? $_POST['nis'] : '';
 $tanggal = isset($_POST['tanggal']) ? $_POST['tanggal'] : '';
 $jam = isset($_POST['jam']) ? $_POST['jam'] : '';

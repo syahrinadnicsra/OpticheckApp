@@ -28,7 +28,7 @@
 
                 <form action="conf/auth_login.php" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" name="username">
+                        <input type="text" class="form-control" placeholder="Username" name="username" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -44,32 +44,31 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-    <select class="form-control" name="role" placeholder="pilih role">
-        <option value="admin">admin</option>
-        <option value="guru">guru</option>
-        <option value="siswa">siswa</option>
-    </select>
-    <div class="input-group-append">
-        <div class="input-group-text">
-            <span class="fas fa-user"></span>
-        </div>
-    </div>
-</div>
+                        <select class="form-control" name="role" required>
+                            <option value="" disabled selected>Pilih Role</option>
+                            <option value="admin">admin</option>
+                            <option value="guru">guru</option>
+                            <option value="siswa">siswa</option>
+                        </select>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-8">
-                            <div class="icheck-primary">
+                            <!-- <div class="icheck-primary">
                                 <input type="checkbox" id="remember">
                                 <label for="remember">
                                     Remember Me
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
-                        <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Log In</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
                 <!-- /.login-card-body -->

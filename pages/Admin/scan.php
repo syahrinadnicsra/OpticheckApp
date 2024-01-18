@@ -12,6 +12,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- Instascan -->
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -155,10 +157,10 @@
                                     <video id="preview" style="display: none;"></video>
                                 </div>
 
-                                <div class="box-body">
+                                <!-- <div class="box-body">
                                     <br>
                                     <div id="result"></div>
-                                </div>
+                                </div> -->
                                 <!-- ... Bagian body card ... -->
                             </div>
                             <!-- /.box -->
@@ -183,60 +185,136 @@
     let scanner;
 
     function startScanner() {
-    if (!scanner) {
-        scanner = new Instascan.Scanner({
-            video: document.getElementById('preview')
-        });
+        if (!scanner) {
+            scanner = new Instascan.Scanner({
+                video: document.getElementById('preview')
+            });
 
-        scanner.addListener('scan', function(encodedContent) {
-            let decryptedContent = atob(encodedContent);
-            document.getElementById('result').innerHTML = `Hasil (Dekripsi): ${decryptedContent}`;
+            scanner.addListener('scan', function(encodedContent) {
+                let decryptedContent = atob(encodedContent);
+                // document.getElementById('result').innerHTML = `Hasil (Dekripsi): ${decryptedContent}`;
 
-            // Panggil fungsi simpanData secara otomatis
-            simpanData();
+                // Panggil fungsi simpanData secara otomatis
+                simpanData(decryptedContent);
+            });
+        }
+
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                document.getElementById('preview').style.display = 'block';
+                scanner.start(cameras[0]);
+            } else {
+                console.error('Tidak ada kamera yang ditemukan.');
+            }
+        }).catch(function(e) {
+            console.error(e);
         });
     }
 
-    Instascan.Camera.getCameras().then(function(cameras) {
-        if (cameras.length > 0) {
-            document.getElementById('preview').style.display = 'block';
-            scanner.start(cameras[0]);
-        } else {
-            console.error('Tidak ada kamera yang ditemukan.');
-        }
-    }).catch(function(e) {
-        console.error(e);
-    });
-}
+    function simpanData(hasilScan) {
+        var hasilArray = hasilScan.split('|');
+        var nis = hasilArray[0];
+        var tanggalJam = hasilArray[1];
 
-function simpanData() {
-    var hasilScan = document.getElementById('result').innerText;
+        var tanggalJamArray = tanggalJam.split(' ');
+        var tanggal = tanggalJamArray[0];
+        var jam = tanggalJamArray[1];
 
-    var hasilArray = hasilScan.split('|');
-    var nis = hasilArray[0];
-    var tanggalJam = hasilArray[1];
+        // console.log("Data yang akan dikirim:", {
+        //     nis: nis,
+        //     tanggal: tanggal,
+        //     jam: jam
+        // });
 
-    var tanggalJamArray = tanggalJam.split('|');
-    var tanggal = tanggalJamArray[0];
-    var jam = tanggalJamArray[1];
+        // Melakukan pengecekan apakah data sudah ada sebelumnya
+        $.ajax({
+            type: 'POST',
+            url: '../CheckIn/cek_data.php', // Ganti dengan URL yang sesuai untuk cek_data.php
+            data: {
+                nis: nis,
+                tanggal: tanggal
+            },
+            success: function(response) {
+                // Jika data sudah ada, tampilkan pesan
+                if (response === 'sudah_absen') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Anda sudah melakukan absen!',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
 
-    $.ajax({
-        type: 'POST',
-        url: '../CheckIn/simpan_data.php',
-        data: {
-            nis: nis,
-            tanggal: tanggal,
-            jam: jam
-        },
-        success: function(response) {
-            alert('Data berhasil disimpan!');
-        },
-        error: function(error) {
-            console.error('Error:', error);
-            alert('Gagal menyimpan data.');
-        }
-    });
-}
+                    // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                    setTimeout(function() {
+                        document.getElementById('result').innerHTML = '';
+                        startScanner();
+                    }, 1500);
+                } else {
+                    // Jika data belum ada, lakukan penyimpanan
+                    $.ajax({
+                        type: 'POST',
+                        url: '../CheckIn/simpan_data.php',
+                        data: {
+                            nis: nis,
+                            tanggal: tanggal,
+                            jam: jam
+                        },
+                        success: function(response) {
+                            // Menampilkan SweetAlert berhasil
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Absen berhasil disimpan!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                            setTimeout(function() {
+                                document.getElementById('result').innerHTML = '';
+                                startScanner();
+                            }, 1500);
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+
+                            // Menampilkan SweetAlert gagal
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal menyimpan data!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                            setTimeout(function() {
+                                document.getElementById('result').innerHTML = '';
+                                startScanner();
+                            }, 1500);
+                        }
+                    });
+                }
+            },
+            error: function(error) {
+                console.error('Error:', error);
+
+                // Menampilkan SweetAlert gagal
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal memeriksa data!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                setTimeout(function() {
+                    document.getElementById('result').innerHTML = '';
+                    startScanner();
+                }, 1500);
+            }
+        });
+    }
+
+
 
     function stopScanner() {
         if (scanner) {
@@ -245,6 +323,10 @@ function simpanData() {
             document.getElementById('result').innerHTML = ''; // Bersihkan hasil scan
         }
     }
+</script>
+
+
+
     </script>
 
     <!-- jQuery -->
@@ -281,6 +363,7 @@ function simpanData() {
     <script src="../../app/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../../app/dist/js/pages/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 
 </html>

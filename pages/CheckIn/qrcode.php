@@ -217,13 +217,10 @@
         // Get the current date and time
         var currentDate = new Date();
 
-        // Format date and time
-        var formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " ");
-
-        // Format date and time in the desired format (e.g., DD/MM/YYYY HH:mm:ss)
-        var formattedDateTime = ("0" + currentDate.getDate()).slice(-2) + "-" +
+        // Format date and time in the desired format (e.g., YYYY-MM-DD HH:mm:ss)
+        var formattedDateTime = currentDate.getFullYear() + "-" +
             ("0" + (currentDate.getMonth() + 1)).slice(-2) + "-" +
-            currentDate.getFullYear() + "|" +
+            ("0" + currentDate.getDate()).slice(-2) + " " +
             ("0" + currentDate.getHours()).slice(-2) + ":" +
             ("0" + currentDate.getMinutes()).slice(-2) + ":" +
             ("0" + currentDate.getSeconds()).slice(-2);
@@ -254,6 +251,8 @@
         });
     }
     </script>
+
+
 
 
     <!-- jQuery -->
