@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2024 at 10:34 AM
+-- Generation Time: Jan 18, 2024 at 11:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `checkin` (
   `id` int(11) NOT NULL,
   `nis` int(11) NOT NULL,
   `tanggal` date NOT NULL,
-  `jam` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `jam` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -39,8 +39,21 @@ CREATE TABLE `checkin` (
 --
 
 INSERT INTO `checkin` (`id`, `nis`, `tanggal`, `jam`) VALUES
-(1, 0, '0000-00-00', '0000-00-00 00:00:00'),
-(2, 0, '0000-00-00', '0000-00-00 00:00:00');
+(1, 0, '2024-01-18', '00:00:00'),
+(2, 0, '0000-00-00', '00:00:00'),
+(3, 11, '0000-00-00', '04:44:56'),
+(4, 1222, '2024-01-19', '05:24:01'),
+(5, 1222, '2024-01-19', '05:24:01'),
+(6, 1222, '2024-01-19', '05:24:01'),
+(7, 789456, '2024-01-19', '05:29:56'),
+(8, 789456, '2024-01-19', '05:29:56'),
+(9, 789456, '2024-01-19', '05:29:56'),
+(10, 789456, '2024-01-19', '05:29:56'),
+(11, 789456, '2024-01-19', '05:29:56'),
+(12, 789456, '2024-01-19', '05:29:56'),
+(13, 789456, '2024-01-19', '05:29:56'),
+(14, 789456, '2024-01-19', '05:29:56'),
+(15, 30303, '2024-01-19', '05:55:25');
 
 -- --------------------------------------------------------
 
@@ -151,7 +164,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `created_date`) VALUES
 (1, 'Admin', 'admin', '101010', 'admin', '2024-01-18'),
-(2, 'AFRISKA PUTRI APRILIANA', '2110809', '101010', 'siswa', '2024-01-18');
+(2, 'AFRISKA PUTRI APRILIANA', '2110809', '101010', 'siswa', '2024-01-18'),
+(3, 'ajip', '10633', '1', 'siswa', '2024-01-19');
 
 --
 -- Indexes for dumped tables
@@ -201,7 +215,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `checkin`
 --
 ALTER TABLE `checkin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `izinsiswa`
@@ -231,7 +245,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
