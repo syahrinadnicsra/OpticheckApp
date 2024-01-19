@@ -115,6 +115,14 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="?page=data_user" class="nav-link">
+                                <i class="nav-icon fa-solid fa-users"></i>
+                                <p>
+                                    Data User
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="../../conf/logout.php" class="nav-link">
                                 <i class="nav-icon fa-solid fa-logout"></i>
                                 <p>
@@ -139,17 +147,21 @@ session_start();
                         include __DIR__ . "/../../pages/dataSiswa/tambah_siswa.php";
                     } elseif ($_GET['page'] == 'ubah_siswa') {
                         include __DIR__ . "/../../pages/dataSiswa/ubah_siswa.php";
-                    } elseif ($_GET['page'] == 'data_pasien') {
-                        include __DIR__ . "/../../pages/data_pasien/data_pasien.php";
-                    } elseif ($_GET['page'] == 'data_dokter') {
-                        include __DIR__ . "/../../pages/data_dokter/data_dokter.php";
+                    } elseif ($_GET['page'] == 'data_user') {
+                        include __DIR__ . "/../../pages/dataUser/data_user.php";
                     } elseif ($_GET['page'] == 'scan') {
                         include __DIR__ . "/../../pages/Admin/scan.php";
-                    } else {
+                    } elseif ($_GET['page'] == 'data_siswa') {
                         include __DIR__ . "/../../pages/dataSiswa/data_siswa.php"; //
+                    } elseif ($_GET['page'] == 'tambah_user') {
+                        include __DIR__ . "/../../pages/dataUser/tambah_user.php";
+                    } elseif ($_GET['page'] == 'ubah_user') {
+                        include __DIR__ . "/../../pages/dataUser/ubah_user.php";
+                    } else {
+                        include _DIR__ . "/../../pages/dataUser/data_user.php";
                     }
-                } else {
-                    include __DIR__ . "/../../pages/home.php";  //home.php file untuk halaman dashboard
+                    //} else {
+                    //  include __DIR__ . "/../../pages/dashboard.php";  //home.php file untuk halaman dashboard
                 }
             }
             ?>

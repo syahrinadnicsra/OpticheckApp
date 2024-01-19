@@ -98,6 +98,10 @@ session_start();
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+                        <li class="item">
+                            <a href="#" class="nav_link">
+                                <p>Pilih Kelas untuk Lihat & Unduh Rekap Kehadiran Siswa</p>
+                        </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
@@ -278,8 +282,8 @@ session_start();
                     } else {
                         include __DIR__ . "/../../pages/dataSiswa/data_siswa.php"; //
                     }
-                } else {
-                    include __DIR__ . "/../../pages/home.php";  //home.php file untuk halaman dashboard
+                    //} else {
+                    //  include __DIR__ . "/../../pages/home.php";  //home.php file untuk halaman dashboard
                 }
             }
             ?>

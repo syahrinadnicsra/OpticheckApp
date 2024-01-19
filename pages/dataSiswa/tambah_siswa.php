@@ -29,7 +29,7 @@
                                     <input type="text" name="id" class="form-control" placeholder="ID" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Nomor Induk Siswat</label>
+                                    <label>Nomor Induk Siswa</label>
                                     <input type="text" name="nis" class="form-control" placeholder="NIS" required>
                                 </div>
                                 <div class="form-group">

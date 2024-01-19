@@ -154,8 +154,8 @@ session_start();
                     } else {
                         include __DIR__ . "/../../pages/izinSiswa/data_izin.php"; //
                     }
-                } else {
-                    include __DIR__ . "/../../pages/home.php";  //home.php file untuk halaman dashboard
+                    //} else {
+                    //  include __DIR__ . "/../../pages/home.php";  //home.php file untuk halaman dashboard
                 }
             }
             ?>
