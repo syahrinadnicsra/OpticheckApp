@@ -5,9 +5,9 @@
         <h1>
             TAMBAH DATA SISWA
         </h1>
-        <ol class="breadcrumb">
+        <!-- <ol class="breadcrumb">
             <li class="active">TAMBAH DATA SISWA </li>
-        </ol>
+        </ol> -->
     </section>
     <!-- Main content -->
     <section class="content">
@@ -17,17 +17,17 @@
                 <!-- general form elements -->
                 <div class="card box box-primary">
                     <!-- /.box-header -->
-                    <div class="card-header box-header">
+                    <!-- <div class="card-header box-header">
                         <h2>Tambah Data Siswa</h2>
-                    </div>
+                    </div> -->
                     <div class="card-body">
                         <!-- form start -->
                         <form role="form" method="post" action="../../pages/dataSiswa/tambah_siswa_proses.php"> <!--setting aksi untuk tombol simpan-->
                             <div class="box-body">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>ID</label>
                                     <input type="text" name="id" class="form-control" placeholder="ID" required>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label>Nomor Induk Siswa</label>
                                     <input type="text" name="nis" class="form-control" placeholder="NIS" required>

@@ -24,41 +24,41 @@
                         <!-- form start -->
                         <form role="form" method="post" action="../../pages/dataUser/tambah_user_proses.php"> <!--setting aksi untuk tombol simpan-->
                             <div class="box-body">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>ID</label>
                                     <input type="text" name="id" class="form-control" placeholder="ID" required>
-                                </div>
-                                <div class="form-group">
+                                </div> -->
+                                <div class="form-group col-xs-12 col-sm-6">
                                     <label>Nama</label>
                                     <input type="text" name="nama" class="form-control" placeholder="Nama" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-xs-12 col-sm-6">
                                     <label>username</label>
                                     <input type="text" name="username" class="form-control" placeholder="Username" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-xs-12 col-sm-6">
                                     <label>Password</label>
                                     <input type="password" name="password" class="form-control" placeholder="Password" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-xs-12 col-sm-6">
                                     <label for="role">Role</label>
                                     <select id="role" name="role" class="form-control custom-select">
-                                        <option selected disabled>Open this select menu</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="siswa">Siswa</option>
-                                        <option value="guru">Guru</option>
+                                        <option selected disabled>Pilih role</option>
+                                        <option value="admin">admin</option>
+                                        <option value="siswa">siswa</option>
+                                        <option value="guru">guru</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Dibuat</label>
 
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="date" class="form-control float-right" id="created_date"> <!--reservationtime-->
+                                        <input type="date" class="form-control float-right" id="created_date">
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                             <!-- /.box-body -->

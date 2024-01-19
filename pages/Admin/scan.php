@@ -56,7 +56,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="indexAdmin.php" class="brand-link">
                 <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light-bold">Opticheck</span>
@@ -109,10 +109,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?page=data_guru" class="nav-link">
-                                <i class="nav-icon fa-solid fa-chalkboard-user"></i>
+                            <a href="?page=data_user" class="nav-link">
+                                <i class="nav-icon fa-solid fa-users"></i>
                                 <p>
-                                    Data Guru
+                                    Data User
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../../conf/logout.php" class="nav-link">
+                                <i class="nav-icon fa-solid fa-logout"></i>
+                                <p>
+                                    Logout
                                 </p>
                             </a>
                         </li>
