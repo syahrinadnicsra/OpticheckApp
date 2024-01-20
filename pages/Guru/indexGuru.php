@@ -98,9 +98,13 @@ session_start();
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="item">
-                            <a href="#" class="nav_link">
-                                <p>Pilih Kelas untuk Lihat & Unduh Rekap Kehadiran Siswa</p>
+                        <li class="nav-item">
+                            <a href="?page=data_rekap" class="nav-link">
+                                <i class="nav-icon fa-solid fa-qrcode"></i>
+                                <p>
+                                    Rekap
+                                </p>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -259,6 +263,14 @@ session_start();
                             </ul>
                         </li>
                     </ul>
+                    <li class="nav-item">
+                        <a href="../../conf/logout.php" class="nav-link">
+                            <i class="nav-icon fas fa-sign-out"></i>
+                            <p>
+                                Logout
+                            </p>
+                        </a>
+                    </li>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
@@ -275,8 +287,8 @@ session_start();
                         include __DIR__ . "/../../pages/dataSiswa/tambah_siswa.php";
                     } elseif ($_GET['page'] == 'ubah_siswa') {
                         include __DIR__ . "/../../pages/dataSiswa/ubah_siswa.php";
-                    } elseif ($_GET['page'] == 'data_pasien') {
-                        include __DIR__ . "/../../pages/data_pasien/data_pasien.php";
+                    } elseif ($_GET['page'] == 'data_rekap') {
+                        include __DIR__ . "/../../pages/Rekap/data_rekap.php";
                     } elseif ($_GET['page'] == 'data_dokter') {
                         include __DIR__ . "/../../pages/data_dokter/data_dokter.php";
                     } else {

@@ -1,7 +1,6 @@
 <?php
 include __DIR__ . "/../../conf/conn.php";
 if ($_POST) {
-    $id = $_POST['id'];
     $nis = $_POST['nis'];
     $nama_siswa = $_POST['nama_siswa'];
     $kelas = $_POST['kelas'];

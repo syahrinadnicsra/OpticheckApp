@@ -6,5 +6,5 @@ if (!mysqli_query($conn, $query)) {
     die(mysql_error);
 } else {
     echo '<script>alert("Data Berhasil Dihapus !!!");
-		window.location.href="../Admin/indexAdmin.php?page=data_siswa"</script>';
+		window.location.href="../Admin/indexAdmin.php?page=data_izin"</script>';
 }

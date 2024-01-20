@@ -1,6 +1,6 @@
 <?php
 include __DIR__ . "/../../conf/conn.php";
-$sql = "SELECT * FROM siswa WHERE id='" . $_GET['id'] . "'";
+$sql = "SELECT * FROM izinsiswa WHERE id='" . $_GET['id'] . "'";
 //echo $sql;
 $query = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($query);
@@ -30,7 +30,7 @@ $row = mysqli_fetch_array($query);
                         <h2>Ubah Data Siswa</h2>
                     </div>
                     <!-- form start -->
-                    <form role="form" method="post" action="../../pages/dataSiswa/ubah_siswa_proses.php">
+                    <form role="form" method="post" action="../../pages/izinSiswa/ubah_izin_proses.php">
                         <div class="card-body box-body">
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                             <div class="form-group">

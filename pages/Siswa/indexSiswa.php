@@ -123,8 +123,8 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/conf/logout.php" class="nav-link">
-                                <i class="nav-icon fa-solid fa-logout"></i>
+                            <a href="../../conf/logout.php" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out"></i>
                                 <p>
                                     Logout
                                 </p>

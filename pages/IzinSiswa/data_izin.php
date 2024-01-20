@@ -23,7 +23,6 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Id</th>
                                     <th>Nomor Induk Siswa</th>
                                     <th>Nama Siswa</th>
                                     <th>Kelas</th>
@@ -45,7 +44,6 @@
                                 ?>
                                     <tr>
                                         <td><?php echo $no = $no + 1; ?></td>
-                                        <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['nis']; ?></td>
                                         <td><?php echo $row['nama_siswa']; ?></td>
                                         <td><?php echo $row['kelas']; ?></td>

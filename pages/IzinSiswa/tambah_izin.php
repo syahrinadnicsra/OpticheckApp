@@ -25,11 +25,7 @@
                         <form role="form" method="post" action="../../pages/izinSiswa/tambah_izin_proses.php"> <!--setting aksi untuk tombol simpan-->
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label>ID</label>
-                                    <input type="text" name="id" class="form-control" placeholder="ID" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nomor Induk Siswat</label>
+                                    <label>Nomor Induk Siswa</label>
                                     <input type="text" name="nis" class="form-control" placeholder="NIS" required>
                                 </div>
                                 <div class="form-group">
