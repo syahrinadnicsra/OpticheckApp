@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2024 at 11:58 PM
+-- Generation Time: Jan 22, 2024 at 12:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,21 +39,31 @@ CREATE TABLE `checkin` (
 --
 
 INSERT INTO `checkin` (`id`, `nis`, `tanggal`, `jam`) VALUES
-(1, 0, '2024-01-18', '00:00:00'),
-(2, 0, '0000-00-00', '00:00:00'),
-(3, 11, '0000-00-00', '04:44:56'),
-(4, 1222, '2024-01-19', '05:24:01'),
-(5, 1222, '2024-01-19', '05:24:01'),
-(6, 1222, '2024-01-19', '05:24:01'),
-(7, 789456, '2024-01-19', '05:29:56'),
-(8, 789456, '2024-01-19', '05:29:56'),
-(9, 789456, '2024-01-19', '05:29:56'),
-(10, 789456, '2024-01-19', '05:29:56'),
-(11, 789456, '2024-01-19', '05:29:56'),
-(12, 789456, '2024-01-19', '05:29:56'),
-(13, 789456, '2024-01-19', '05:29:56'),
-(14, 789456, '2024-01-19', '05:29:56'),
-(15, 30303, '2024-01-19', '05:55:25');
+(4, 2110809, '2024-01-19', '05:24:01'),
+(5, 2110809, '2024-01-19', '05:24:01'),
+(6, 2110809, '2024-01-19', '05:24:01'),
+(7, 10633, '2024-01-19', '05:29:56'),
+(8, 10633, '2024-01-19', '05:29:56'),
+(9, 10633, '2024-01-19', '05:29:56'),
+(10, 10633, '2024-01-19', '05:29:56'),
+(11, 10633, '2024-01-19', '05:29:56'),
+(12, 2110816, '2024-01-19', '05:29:56'),
+(13, 2110816, '2024-01-19', '05:29:56'),
+(14, 2110815, '2024-01-19', '05:29:56'),
+(15, 2110815, '2024-01-19', '05:55:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `checkout`
+--
+
+CREATE TABLE `checkout` (
+  `id` int(11) NOT NULL,
+  `nis` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `jam` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -77,7 +87,9 @@ CREATE TABLE `izinsiswa` (
 --
 
 INSERT INTO `izinsiswa` (`id`, `nis`, `nama_siswa`, `kelas`, `jurusan`, `jenis_kelamin`, `alasan`, `bukti`) VALUES
-(1, 2110809, 'AFRISKA PUTRI APRILI', 'XII', 'TAV', 'P', 'Sakit', '');
+(1, 2110809, 'AFRISKA PUTRI APRILI', 'XII', 'TAV', 'P', 'Sakit', ''),
+(2, 10633, 'ajip', 'XII', 'TKR', 'L', 'sakit', 'download.png'),
+(3, 10633, 'ajiep', 'XI', 'TRA', 'L', 'lomba', 'Screenshot_20221219_171323.png');
 
 -- --------------------------------------------------------
 
@@ -141,7 +153,8 @@ CREATE TABLE `siswa` (
 INSERT INTO `siswa` (`id`, `nis`, `nama_siswa`, `kelas`, `jurusan`, `jenis_kelamin`) VALUES
 (1, 2110809, 'AFRISKA PUTRI APRILIANA', 'XII', 'TAV', 'P'),
 (6, 2110816, 'DEVITA AGUSTINA', 'XII', 'TAV', 'P'),
-(7, 2110815, 'DEVINA ELISABETH', 'XII', 'TAV', 'P');
+(7, 2110815, 'DEVINA ELISABETH', 'XII', 'TAV', 'P'),
+(8, 10633, 'AJIP', 'XI', 'TKR', 'L');
 
 -- --------------------------------------------------------
 
@@ -153,7 +166,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `nama` varchar(35) NOT NULL,
   `username` varchar(25) NOT NULL,
-  `password` varchar(25) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `role` varchar(10) NOT NULL,
   `created_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -163,9 +176,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `created_date`) VALUES
-(1, 'Admin', 'admin', '101010', 'admin', '2024-01-18'),
+(1, 'Admin Opticheck', 'admin', '101010', 'admin', '2024-01-18'),
 (2, 'AFRISKA PUTRI APRILIANA', '2110809', '101010', 'siswa', '2024-01-18'),
-(3, 'ajip', '10633', '1', 'siswa', '2024-01-19');
+(3, 'ajip', '10633', '1', 'siswa', '2024-01-19'),
+(4, 'AJIP', 'ajip', '101010', 'admin', '2024-01-20');
 
 --
 -- Indexes for dumped tables
@@ -175,6 +189,12 @@ INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `created_date`
 -- Indexes for table `checkin`
 --
 ALTER TABLE `checkin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `checkout`
+--
+ALTER TABLE `checkout`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -218,10 +238,16 @@ ALTER TABLE `checkin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT for table `checkout`
+--
+ALTER TABLE `checkout`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT for table `izinsiswa`
 --
 ALTER TABLE `izinsiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `loginguru`
@@ -239,13 +265,13 @@ ALTER TABLE `loginsiswa`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
