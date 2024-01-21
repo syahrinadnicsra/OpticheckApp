@@ -5,9 +5,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Opticheck</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <!-- jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Instascan -->
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -35,13 +41,6 @@
     <link rel="stylesheet" href="../../app/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../app/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="../../app/dist/css/adminlte.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Script QR Code using qrcode.js -->
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -52,14 +51,12 @@
       <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
     </div>-->
 
-        <!-- Navbar -->
-
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="indexAdmin.php" class="brand-link">
                 <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light-bold">Opticheck</span>
@@ -94,29 +91,36 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fa-solid fa-book-open-reader"></i>
+                            <a href="?page=scan_in" class="nav-link">
+                                <i class="nav-icon fa-solid fa-camera"></i>
                                 <p>
-                                    Presentase(%)
+                                    Scan CheckIn
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../CheckIn/qrcode.php" class="nav-link">
-                                <i class="nav-icon fa-solid fa-qrcode"></i>
+                            <a href="?page=scan_out" class="nav-link">
+                                <i class="nav-icon fa-solid fa-camera"></i>
                                 <p>
-                                    Buat QrCode
+                                    Scan CheckOut
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="?page=data_izin" class="nav-link">
-                                <i class="nav-icon fa-solid fa-chalkboard-user"></i>
+                            <a href="?page=data_siswa" class="nav-link">
+                                <i class="nav-icon fa-solid fa-graduation-cap"></i>
                                 <p>
-                                    Form Izin / Tidak Hadir
+                                    Data Siswa
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="?page=data_user" class="nav-link">
+                                <i class="nav-icon fa-solid fa-users"></i>
+                                <p>
+                                    Data User
                                 </p>
                             </a>
                         </li>
@@ -147,41 +151,33 @@
                     <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="card box box-primary">
-                            <!-- /.box-header -->
+                            <!-- ... Bagian header card ... -->
                             <div class="card-header box-header">
-                                <h2>Tampilkan QR Code</h2>
+                                <h2>Scan QR Code</h2>
                             </div>
                             <div class="card-body">
-                                <!-- form start -->
+                                <!-- ... Bagian form ... -->
                                 <div class="box-body">
-                                    <p>Masukkan Nomor Induk Siswa kalian untuk menampilkan QR Code Anda.</p>
-                                    <input class='form-control' type="text" id="inputText" placeholder="Masukkan NIS" />
+                                    <p>Klik tombol dibawah ini untuk melakukan scan</p>
                                     <br>
-                                    <button class='btn btn-primary' onclick="generateQRCode()">Buat QR Code</button>
+
+                                    <!-- Tombol Aktifkan Kamera -->
+                                    <button class='btn btn-primary' onclick="startScanner()">Aktifkan Kamera</button>
+
+                                    <!-- Tombol Matikan Kamera -->
+                                    <button class='btn btn-danger' onclick="stopScanner()">Matikan Kamera</button>
                                 </div>
 
-                                <!-- Modal untuk menampilkan QR Code -->
-                                <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="qrCodeModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document" style="z-index: 1050;">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 text-align="center;" class="modal-title" id="qrCodeModalLabel">QR
-                                                    Code</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body text-center">
-                                                <!-- QR Code akan ditampilkan di sini -->
-                                                <div id="qrcode"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="box-body">
+                                    <br>
+                                    <video id="preview" style="display: none;"></video>
                                 </div>
 
-                                <!-- /.box-body -->
+                                <!-- <div class="box-body">
+                                    <br>
+                                    <div id="result"></div>
+                                </div> -->
+                                <!-- ... Bagian body card ... -->
                             </div>
                             <!-- /.box -->
                         </div>
@@ -191,8 +187,6 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
-
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -204,56 +198,152 @@
     <!-- ./wrapper -->
 
     <script>
-    function generateQRCode() {
-        // Get text from the input element
-        var textToEncode = document.getElementById("inputText").value;
+    let scanner;
 
-        // Check if the input is empty
-        if (textToEncode.trim() === "") {
-            alert("Masukkan NIS sebelum melakukan klik Generate");
-            return;
+    function startScanner() {
+        if (!scanner) {
+            scanner = new Instascan.Scanner({
+                video: document.getElementById('preview')
+            });
+
+            scanner.addListener('scan', function(encodedContent) {
+                let decryptedContent = atob(encodedContent);
+                // document.getElementById('result').innerHTML = `Hasil (Dekripsi): ${decryptedContent}`;
+
+                // Panggil fungsi simpanData secara otomatis
+                simpanData(decryptedContent);
+            });
         }
 
-        // Get the current date and time
-        var currentDate = new Date();
-
-        // Format date and time in the desired format (e.g., YYYY-MM-DD HH:mm:ss)
-        var formattedDateTime = currentDate.getFullYear() + "-" +
-            ("0" + (currentDate.getMonth() + 1)).slice(-2) + "-" +
-            ("0" + currentDate.getDate()).slice(-2) + " " +
-            ("0" + currentDate.getHours()).slice(-2) + ":" +
-            ("0" + currentDate.getMinutes()).slice(-2) + ":" +
-            ("0" + currentDate.getSeconds()).slice(-2);
-
-        // Combine text, date, and time
-        var textWithDateTime = textToEncode + "|" + formattedDateTime;
-        console.log("Text with Date and Time: " + textWithDateTime);
-
-        // Encrypt text using Base64
-        var encryptedText = btoa(textWithDateTime);
-        console.log("Encrypted Text: " + encryptedText);
-
-        // Create QR Code with encrypted text
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: encryptedText,
-            width: 250,
-            height: 250,
-        });
-
-        // Show modal after the QR Code is generated
-        $('#qrCodeModal').modal('show');
-
-        // Attach an event listener to the modal close button
-        $('#qrCodeModal').on('hidden.bs.modal', function(e) {
-            // Clear the QR Code and input field
-            document.getElementById("qrcode").innerHTML = '';
-            document.getElementById("inputText").value = '';
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                document.getElementById('preview').style.display = 'block';
+                scanner.start(cameras[0]);
+            } else {
+                console.error('Tidak ada kamera yang ditemukan.');
+            }
+        }).catch(function(e) {
+            console.error(e);
         });
     }
+
+    function simpanData(hasilScan) {
+        var hasilArray = hasilScan.split('|');
+        var nis = hasilArray[0];
+        var tanggalJam = hasilArray[1];
+
+        var tanggalJamArray = tanggalJam.split(' ');
+        var tanggal = tanggalJamArray[0];
+        var jam = tanggalJamArray[1];
+
+        // console.log("Data yang akan dikirim:", {
+        //     nis: nis,
+        //     tanggal: tanggal,
+        //     jam: jam
+        // });
+
+        // Melakukan pengecekan apakah data sudah ada sebelumnya
+        $.ajax({
+            type: 'POST',
+            url: '../CheckIn/cek_data.php', // Ganti dengan URL yang sesuai untuk cek_data.php
+            data: {
+                nis: nis,
+                tanggal: tanggal
+            },
+            success: function(response) {
+                // Jika data sudah ada, tampilkan pesan
+                if (response === 'sudah_absen') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Anda sudah melakukan absen!',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                    // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                    setTimeout(function() {
+                        document.getElementById('result').innerHTML = '';
+                        startScanner();
+                    }, 1500);
+                } else {
+                    // Jika data belum ada, lakukan penyimpanan
+                    $.ajax({
+                        type: 'POST',
+                        url: '../CheckIn/simpan_data.php',
+                        data: {
+                            nis: nis,
+                            tanggal: tanggal,
+                            jam: jam
+                        },
+                        success: function(response) {
+                            // Menampilkan SweetAlert berhasil
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Absen berhasil disimpan!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                            setTimeout(function() {
+                                document.getElementById('result').innerHTML = '';
+                                startScanner();
+                            }, 1500);
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+
+                            // Menampilkan SweetAlert gagal
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal menyimpan data!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                            setTimeout(function() {
+                                document.getElementById('result').innerHTML = '';
+                                startScanner();
+                            }, 1500);
+                        }
+                    });
+                }
+            },
+            error: function(error) {
+                console.error('Error:', error);
+
+                // Menampilkan SweetAlert gagal
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal memeriksa data!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                setTimeout(function() {
+                    document.getElementById('result').innerHTML = '';
+                    startScanner();
+                }, 1500);
+            }
+        });
+    }
+
+
+
+    function stopScanner() {
+        if (scanner) {
+            scanner.stop();
+            document.getElementById('preview').style.display = 'none';
+            document.getElementById('result').innerHTML = ''; // Bersihkan hasil scan
+        }
+    }
+</script>
+
+
+
     </script>
-
-
-
 
     <!-- jQuery -->
     <script src="../../app/plugins/jquery/jquery.min.js"></script>
@@ -289,7 +379,7 @@
     <script src="../../app/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../../app/dist/js/pages/dashboard.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 
 </html>

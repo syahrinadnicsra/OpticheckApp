@@ -22,38 +22,37 @@
                     </div>
                     <div class="card-body">
                         <!-- form start -->
-                        <form role="form" method="post" action="../../pages/izinSiswa/tambah_izin_proses.php"> <!--setting aksi untuk tombol simpan-->
+                        <form role="form" method="post" action="../../pages/izinSiswa/tambah_izin_proses.php" enctype="multipart/form-data">
                             <div class="box-body">
-                                <div class="form-group">
-                                    <label>Nomor Induk Siswa</label>
-                                    <input type="text" name="nis" class="form-control" placeholder="NIS" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nama Siswa</label>
-                                    <input type="text" name="nama_siswa" class="form-control" placeholder="Nama Siswa" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Kelas</label>
-                                    <input type="text" name="kelas" class="form-control" placeholder="Kelas" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Jurusan</label>
-                                    <input type="text" name="jurusan" class="form-control" placeholder="Jurusan" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Jenis Kelamin</label>
-                                    <input type="text" name="jenis_kelamin" class="form-control" placeholder="Jenis Kelamin" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Alasan Tidak Hadir</label>
-                                    <input type="text" name="alasan" class="form-control" placeholder="Alasan" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Upload Bukti</label>
-                                    <input type="file" name="bukti" class="form-control-file" accept="image/*" placeholder="Bukti" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="nis">Nomor Induk Siswa</label>
+                                <input type="text" id="nis" name="nis" class="form-control" placeholder="Enter NIS" required>
                             </div>
-
+                            <div class="form-group">
+                                <label>Nama Siswa</label>
+                                <input type="text" name="nama_siswa" class="form-control" placeholder="Nama Siswa" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Kelas</label>
+                                <input type="text" name="kelas" class="form-control" placeholder="Kelas" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Jurusan</label>
+                                <input type="text" name="jurusan" class="form-control" placeholder="Jurusan" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <input type="text" name="jenis_kelamin" class="form-control" placeholder="Jenis Kelamin" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Alasan Tidak Hadir</label>
+                                <input type="text" name="alasan" class="form-control" placeholder="Alasan" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bukti">Upload Bukti</label>
+                                <input type="file" id="bukti" name="bukti" class="form-control-file" accept="image/*" required>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                     <div class="card-footer box-footer">

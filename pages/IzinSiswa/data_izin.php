@@ -50,7 +50,7 @@
                                         <td><?php echo $row['jurusan']; ?></td>
                                         <td><?php echo $row['jenis_kelamin']; ?></td>
                                         <td><?php echo $row['alasan']; ?></td>
-                                        <td><img src="images/*<?php echo $bukti ?>" style="width: 100px"></td>
+                                        <td><img src="../IzinSiswa/images/<?php echo $row['bukti']; ?>" style="width: 100px"></td>
                                         <td>
                                             <a href=" ?page=ubah_izin&id=<?= $row['id']; ?>" class="btn btn-success" role="button" title="Ubah Data"><i class="glyphicon glyphicon-edit">Edit</i></a>
                                             <a href="../izinSiswa/hapus_izin.php?id=<?= $row['id']; ?>" class="btn btn-danger" role="button" title="Hapus Data"><i class="glyphicon glyphicon-trash">Hapus</i></a>

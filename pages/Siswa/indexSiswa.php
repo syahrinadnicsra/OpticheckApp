@@ -99,7 +99,7 @@ session_start();
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="?page=presentase" class="nav-link">
                                 <i class="nav-icon fa-solid fa-book-open-reader"></i>
                                 <p>
                                     Presentase(%)
@@ -110,10 +110,11 @@ session_start();
                             <a href="?page=qrcode" class="nav-link">
                                 <i class="nav-icon fa-solid fa-qrcode"></i>
                                 <p>
-                                    CheckIn di Sini
+                                    Buat QrCode
                                 </p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="?page=data_izin" class="nav-link">
                                 <i class="nav-icon fa-solid fa-chalkboard-user"></i>
@@ -151,6 +152,8 @@ session_start();
                         include __DIR__ . "/../../pages/CheckIn/inputdataSiswa.php";
                     } elseif ($_GET['page'] == 'qrcode') {
                         include __DIR__ . "/../../pages/CheckIn/qrcode.php"; // Memanggil halaman untuk membuat qr code nama file : qrcode.php
+                    } elseif ($_GET['page'] == 'presentase') {
+                        include __DIR__ . "/../../pages/Siswa/presentase.php";
                     } else {
                         include __DIR__ . "/../../pages/izinSiswa/data_izin.php"; //
                     }

@@ -99,10 +99,18 @@ session_start();
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="?page=scan" class="nav-link">
+                            <a href="?page=scan_in" class="nav-link">
                                 <i class="nav-icon fa-solid fa-camera"></i>
                                 <p>
-                                    Scan QRcode
+                                    Scan CheckIn
+                                </p>
+                            </a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a href="?page=scan_out" class="nav-link">
+                                <i class="nav-icon fa-solid fa-camera"></i>
+                                <p>
+                                    Scan CheckOut
                                 </p>
                             </a>
                         </li>
@@ -149,8 +157,10 @@ session_start();
                         include __DIR__ . "/../../pages/dataSiswa/ubah_siswa.php";
                     } elseif ($_GET['page'] == 'data_user') {
                         include __DIR__ . "/../../pages/dataUser/data_user.php";
-                    } elseif ($_GET['page'] == 'scan') {
-                        include __DIR__ . "/../../pages/Admin/scan.php";
+                    } elseif ($_GET['page'] == 'scan_in') {
+                        include __DIR__ . "/../../pages/Admin/scanIn.php";
+                    } elseif ($_GET['page'] == 'scan_out') {
+                        include __DIR__ . "/../../pages/Admin/scanOut.php";
                     } elseif ($_GET['page'] == 'data_siswa') {
                         include __DIR__ . "/../../pages/dataSiswa/data_siswa.php"; //
                     } elseif ($_GET['page'] == 'tambah_user') {
