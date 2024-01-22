@@ -99,6 +99,14 @@ session_start();
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
+                            <a href="?page=dashboardSiswa" class="nav-link">
+                                <i class="nav-icon fa-solid fa-table-columns"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="?page=presentase" class="nav-link">
                                 <i class="nav-icon fa-solid fa-book-open-reader"></i>
                                 <p>
@@ -138,7 +146,8 @@ session_start();
             <!-- /.sidebar -->
         </aside>
 
-        <!-- Content Wrapper. Contains page content -->
+
+
         <!-- Setting Link Halaman -->
         <div class="cart">
             <?php
@@ -154,6 +163,8 @@ session_start();
                         include __DIR__ . "/../../pages/CheckIn/qrcode.php"; // Memanggil halaman untuk membuat qr code nama file : qrcode.php
                     } elseif ($_GET['page'] == 'presentase') {
                         include __DIR__ . "/../../pages/Siswa/presentase.php";
+                    } elseif ($_GET['page'] == 'dashboardSiswa') {
+                        include __DIR__ . "/../../pages/Siswa/dashboardSiswa.php";
                     } else {
                         include __DIR__ . "/../../pages/izinSiswa/data_izin.php"; //
                     }
@@ -164,23 +175,24 @@ session_start();
             ?>
         </div>
         <!-- /Setting Link Halaman -->
+    </div>
+    </section>
+    <!-- /Conten-->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2023 <a href="https://adminlte.io">Syahrina Dini Caesara</a>.</strong>
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 3.2.0
+        </div>
+    </footer>
 
-        <!-- /Conten-->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
 
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2023 <a href="https://adminlte.io">Syahrina Dini Caesara</a>.</strong>
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
-            </div>
-        </footer>
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 

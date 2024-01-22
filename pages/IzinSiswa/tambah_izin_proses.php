@@ -23,9 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     VALUES (?, ?, ?, ?, ?, ?, ?)");
                 $query->bind_param("sssssss", $nis, $nama_siswa, $kelas, $jurusan, $jenis_kelamin, $alasan, $bukti);
 
-                
+
                 if ($query->execute()) {
-                    echo '<script>alert("Data Berhasil Ditambahkan !!!"); window.location.href="../Siswa/indexSiswa.php"</script>';
+                    echo '<script>alert("Data Berhasil Ditambahkan !!!"); window.location.href="../Siswa/indexSiswa.php?page=data_izin"</script>';
                 } else {
                     echo "Error: " . $query->error;
                 }
@@ -43,4 +43,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "Error uploading file. Details: " . $_FILES['bukti']['error'];
     }
 }
-?>

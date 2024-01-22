@@ -10,8 +10,7 @@
     <title>Opticheck</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../app/plugins/fontawesome-free/css/all.min.css">
     <script src="https://kit.fontawesome.com/79ba4adbee.js" crossorigin="anonymous"></script>
@@ -60,8 +59,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light-bold">Opticheck</span>
             </a>
 
@@ -80,8 +78,7 @@
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -92,12 +89,11 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="?page=presentase" class="nav-link">
                                 <i class="nav-icon fa-solid fa-book-open-reader"></i>
                                 <p>
                                     Presentase(%)
@@ -105,7 +101,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../CheckIn/qrcode.php" class="nav-link">
+                            <a href="?page=qrcode" class="nav-link">
                                 <i class="nav-icon fa-solid fa-qrcode"></i>
                                 <p>
                                     Buat QrCode
@@ -161,15 +157,13 @@
                                 </div>
 
                                 <!-- Modal untuk menampilkan QR Code -->
-                                <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document" style="z-index: 1050;">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 text-align="center;" class="modal-title" id="qrCodeModalLabel">QR
                                                     Code</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -204,52 +198,52 @@
     <!-- ./wrapper -->
 
     <script>
-    function generateQRCode() {
-        // Get text from the input element
-        var textToEncode = document.getElementById("inputText").value;
+        function generateQRCode() {
+            // Get text from the input element
+            var textToEncode = document.getElementById("inputText").value;
 
-        // Check if the input is empty
-        if (textToEncode.trim() === "") {
-            alert("Masukkan NIS sebelum melakukan klik Generate");
-            return;
+            // Check if the input is empty
+            if (textToEncode.trim() === "") {
+                alert("Masukkan NIS sebelum melakukan klik Generate");
+                return;
+            }
+
+            // Get the current date and time
+            var currentDate = new Date();
+
+            // Format date and time in the desired format (e.g., YYYY-MM-DD HH:mm:ss)
+            var formattedDateTime = currentDate.getFullYear() + "-" +
+                ("0" + (currentDate.getMonth() + 1)).slice(-2) + "-" +
+                ("0" + currentDate.getDate()).slice(-2) + " " +
+                ("0" + currentDate.getHours()).slice(-2) + ":" +
+                ("0" + currentDate.getMinutes()).slice(-2) + ":" +
+                ("0" + currentDate.getSeconds()).slice(-2);
+
+            // Combine text, date, and time
+            var textWithDateTime = textToEncode + "|" + formattedDateTime;
+            console.log("Text with Date and Time: " + textWithDateTime);
+
+            // Encrypt text using Base64
+            var encryptedText = btoa(textWithDateTime);
+            console.log("Encrypted Text: " + encryptedText);
+
+            // Create QR Code with encrypted text
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: encryptedText,
+                width: 250,
+                height: 250,
+            });
+
+            // Show modal after the QR Code is generated
+            $('#qrCodeModal').modal('show');
+
+            // Attach an event listener to the modal close button
+            $('#qrCodeModal').on('hidden.bs.modal', function(e) {
+                // Clear the QR Code and input field
+                document.getElementById("qrcode").innerHTML = '';
+                document.getElementById("inputText").value = '';
+            });
         }
-
-        // Get the current date and time
-        var currentDate = new Date();
-
-        // Format date and time in the desired format (e.g., YYYY-MM-DD HH:mm:ss)
-        var formattedDateTime = currentDate.getFullYear() + "-" +
-            ("0" + (currentDate.getMonth() + 1)).slice(-2) + "-" +
-            ("0" + currentDate.getDate()).slice(-2) + " " +
-            ("0" + currentDate.getHours()).slice(-2) + ":" +
-            ("0" + currentDate.getMinutes()).slice(-2) + ":" +
-            ("0" + currentDate.getSeconds()).slice(-2);
-
-        // Combine text, date, and time
-        var textWithDateTime = textToEncode + "|" + formattedDateTime;
-        console.log("Text with Date and Time: " + textWithDateTime);
-
-        // Encrypt text using Base64
-        var encryptedText = btoa(textWithDateTime);
-        console.log("Encrypted Text: " + encryptedText);
-
-        // Create QR Code with encrypted text
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: encryptedText,
-            width: 250,
-            height: 250,
-        });
-
-        // Show modal after the QR Code is generated
-        $('#qrCodeModal').modal('show');
-
-        // Attach an event listener to the modal close button
-        $('#qrCodeModal').on('hidden.bs.modal', function(e) {
-            // Clear the QR Code and input field
-            document.getElementById("qrcode").innerHTML = '';
-            document.getElementById("inputText").value = '';
-        });
-    }
     </script>
 
 
@@ -261,7 +255,7 @@
     <script src="../../app/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-    $.widget.bridge('uibutton', $.ui.button)
+        $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
     <script src="../../app/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
