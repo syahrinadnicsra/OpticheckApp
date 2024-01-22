@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="app/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="app/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="app/dist/css/logo.css">
 </head>
 
 <body class="hold-transition login-page">
@@ -21,6 +22,10 @@
         <div class="login-logo">
             <a href="#"><b>Opti</b>check</a>
         </div>
+        <div>
+            <img src="app/dist/img/logoapp.png" alt="Logo SMK">
+        </div>
+        <br>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
