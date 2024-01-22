@@ -1,3 +1,17 @@
+<?php
+    require_once __DIR__ . "/../../conf/conn.php";
+
+    $no = 0;
+
+    if($_SESSION['role'] === 'siswa'){
+        $nis = mysqli_real_escape_string($conn, $_SESSION['nis']);
+
+        $query = mysqli_query($conn, "SELECT * FROM izinSiswa WHERE nis = '$nis' ORDER BY id DESC");
+    } else {
+        $query = mysqli_query($conn, "SELECT * FROM izinSiswa ORDER BY id DESC");
+    }
+?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -36,10 +50,6 @@
                             <tbody>
 
                                 <?php
-                                require_once __DIR__ . "/../../conf/conn.php";
-                                $no = 0;
-                                $query = mysqli_query($conn, "SELECT * FROM izinSiswa ORDER BY id DESC");
-                                //echo $query;
                                 while ($row = mysqli_fetch_array($query)) {
                                 ?>
                                     <tr>
