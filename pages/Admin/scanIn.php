@@ -16,8 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../app/plugins/fontawesome-free/css/all.min.css">
     <script src="https://kit.fontawesome.com/79ba4adbee.js" crossorigin="anonymous"></script>
@@ -57,8 +56,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="indexAdmin.php" class="brand-link">
-                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light-bold">Opticheck</span>
             </a>
 
@@ -77,8 +75,7 @@
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -89,8 +86,7 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="?page=scan_in" class="nav-link">
@@ -153,7 +149,7 @@
                         <div class="card box box-primary">
                             <!-- ... Bagian header card ... -->
                             <div class="card-header box-header">
-                                <h2>Scan QR Code</h2>
+                                <h2>Scan QR Code untuk Check In</h2>
                             </div>
                             <div class="card-body">
                                 <!-- ... Bagian form ... -->
@@ -198,66 +194,127 @@
     <!-- ./wrapper -->
 
     <script>
-    let scanner;
+        let scanner;
 
-    function startScanner() {
-        if (!scanner) {
-            scanner = new Instascan.Scanner({
-                video: document.getElementById('preview')
-            });
+        function startScanner() {
+            if (!scanner) {
+                scanner = new Instascan.Scanner({
+                    video: document.getElementById('preview')
+                });
 
-            scanner.addListener('scan', function(encodedContent) {
-                let decryptedContent = atob(encodedContent);
-                // document.getElementById('result').innerHTML = `Hasil (Dekripsi): ${decryptedContent}`;
+                scanner.addListener('scan', function(encodedContent) {
+                    let decryptedContent = atob(encodedContent);
+                    // document.getElementById('result').innerHTML = `Hasil (Dekripsi): ${decryptedContent}`;
 
-                // Panggil fungsi simpanData secara otomatis
-                simpanData(decryptedContent);
+                    // Panggil fungsi simpanData secara otomatis
+                    simpanData(decryptedContent);
+                });
+            }
+
+            Instascan.Camera.getCameras().then(function(cameras) {
+                if (cameras.length > 0) {
+                    document.getElementById('preview').style.display = 'block';
+                    scanner.start(cameras[0]);
+                } else {
+                    console.error('Tidak ada kamera yang ditemukan.');
+                }
+            }).catch(function(e) {
+                console.error(e);
             });
         }
 
-        Instascan.Camera.getCameras().then(function(cameras) {
-            if (cameras.length > 0) {
-                document.getElementById('preview').style.display = 'block';
-                scanner.start(cameras[0]);
-            } else {
-                console.error('Tidak ada kamera yang ditemukan.');
-            }
-        }).catch(function(e) {
-            console.error(e);
-        });
-    }
+        function simpanData(hasilScan) {
+            var hasilArray = hasilScan.split('|');
+            var nis = hasilArray[0];
+            var tanggalJam = hasilArray[1];
 
-    function simpanData(hasilScan) {
-        var hasilArray = hasilScan.split('|');
-        var nis = hasilArray[0];
-        var tanggalJam = hasilArray[1];
+            var tanggalJamArray = tanggalJam.split(' ');
+            var tanggal = tanggalJamArray[0];
+            var jam = tanggalJamArray[1];
 
-        var tanggalJamArray = tanggalJam.split(' ');
-        var tanggal = tanggalJamArray[0];
-        var jam = tanggalJamArray[1];
+            // console.log("Data yang akan dikirim:", {
+            //     nis: nis,
+            //     tanggal: tanggal,
+            //     jam: jam
+            // });
 
-        // console.log("Data yang akan dikirim:", {
-        //     nis: nis,
-        //     tanggal: tanggal,
-        //     jam: jam
-        // });
+            // Melakukan pengecekan apakah data sudah ada sebelumnya
+            $.ajax({
+                type: 'POST',
+                url: '../CheckIn/cek_data.php', // Ganti dengan URL yang sesuai untuk cek_data.php
+                data: {
+                    nis: nis,
+                    tanggal: tanggal
+                },
+                success: function(response) {
+                    // Jika data sudah ada, tampilkan pesan
+                    if (response === 'sudah_absen') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Anda sudah melakukan absen!',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
 
-        // Melakukan pengecekan apakah data sudah ada sebelumnya
-        $.ajax({
-            type: 'POST',
-            url: '../CheckIn/cek_data.php', // Ganti dengan URL yang sesuai untuk cek_data.php
-            data: {
-                nis: nis,
-                tanggal: tanggal
-            },
-            success: function(response) {
-                // Jika data sudah ada, tampilkan pesan
-                if (response === 'sudah_absen') {
+                        // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                        setTimeout(function() {
+                            document.getElementById('result').innerHTML = '';
+                            startScanner();
+                        }, 1500);
+                    } else {
+                        // Jika data belum ada, lakukan penyimpanan
+                        $.ajax({
+                            type: 'POST',
+                            url: '../CheckIn/simpan_data.php',
+                            data: {
+                                nis: nis,
+                                tanggal: tanggal,
+                                jam: jam
+                            },
+                            success: function(response) {
+                                // Menampilkan SweetAlert berhasil
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Absen berhasil disimpan!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+
+                                // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                                setTimeout(function() {
+                                    document.getElementById('result').innerHTML = '';
+                                    startScanner();
+                                }, 1500);
+                            },
+                            error: function(error) {
+                                console.error('Error:', error);
+
+                                // Menampilkan SweetAlert gagal
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Gagal menyimpan data!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+
+                                // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                                setTimeout(function() {
+                                    document.getElementById('result').innerHTML = '';
+                                    startScanner();
+                                }, 1500);
+                            }
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+
+                    // Menampilkan SweetAlert gagal
                     Swal.fire({
-                        icon: 'warning',
-                        title: 'Anda sudah melakukan absen!',
+                        icon: 'error',
+                        title: 'Gagal memeriksa data!',
                         showConfirmButton: false,
-                        timer: 3000
+                        timer: 1500
                     });
 
                     // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
@@ -265,81 +322,20 @@
                         document.getElementById('result').innerHTML = '';
                         startScanner();
                     }, 1500);
-                } else {
-                    // Jika data belum ada, lakukan penyimpanan
-                    $.ajax({
-                        type: 'POST',
-                        url: '../CheckIn/simpan_data.php',
-                        data: {
-                            nis: nis,
-                            tanggal: tanggal,
-                            jam: jam
-                        },
-                        success: function(response) {
-                            // Menampilkan SweetAlert berhasil
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Absen berhasil disimpan!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-
-                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
-                            setTimeout(function() {
-                                document.getElementById('result').innerHTML = '';
-                                startScanner();
-                            }, 1500);
-                        },
-                        error: function(error) {
-                            console.error('Error:', error);
-
-                            // Menampilkan SweetAlert gagal
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Gagal menyimpan data!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-
-                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
-                            setTimeout(function() {
-                                document.getElementById('result').innerHTML = '';
-                                startScanner();
-                            }, 1500);
-                        }
-                    });
                 }
-            },
-            error: function(error) {
-                console.error('Error:', error);
-
-                // Menampilkan SweetAlert gagal
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal memeriksa data!',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-
-                // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
-                setTimeout(function() {
-                    document.getElementById('result').innerHTML = '';
-                    startScanner();
-                }, 1500);
-            }
-        });
-    }
-
-
-
-    function stopScanner() {
-        if (scanner) {
-            scanner.stop();
-            document.getElementById('preview').style.display = 'none';
-            document.getElementById('result').innerHTML = ''; // Bersihkan hasil scan
+            });
         }
-    }
-</script>
+
+
+
+        function stopScanner() {
+            if (scanner) {
+                scanner.stop();
+                document.getElementById('preview').style.display = 'none';
+                document.getElementById('result').innerHTML = ''; // Bersihkan hasil scan
+            }
+        }
+    </script>
 
 
 
@@ -351,7 +347,7 @@
     <script src="../../app/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-    $.widget.bridge('uibutton', $.ui.button)
+        $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
     <script src="../../app/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
