@@ -208,23 +208,20 @@
                 return;
             }
 
-            // Get the current date and time
+            // Get the current date
             var currentDate = new Date();
 
-            // Format date and time in the desired format (e.g., YYYY-MM-DD HH:mm:ss)
-            var formattedDateTime = currentDate.getFullYear() + "-" +
+            // Format date in the desired format (e.g., YYYY-MM-DD)
+            var formattedDate = currentDate.getFullYear() + "-" +
                 ("0" + (currentDate.getMonth() + 1)).slice(-2) + "-" +
-                ("0" + currentDate.getDate()).slice(-2) + " " +
-                ("0" + currentDate.getHours()).slice(-2) + ":" +
-                ("0" + currentDate.getMinutes()).slice(-2) + ":" +
-                ("0" + currentDate.getSeconds()).slice(-2);
+                ("0" + currentDate.getDate()).slice(-2);
 
-            // Combine text, date, and time
-            var textWithDateTime = textToEncode + "|" + formattedDateTime;
-            console.log("Text with Date and Time: " + textWithDateTime);
+            // Combine text and date
+            var textWithDate = textToEncode + "|" + formattedDate;
+            console.log("Text with Date: " + textWithDate);
 
             // Encrypt text using Base64
-            var encryptedText = btoa(textWithDateTime);
+            var encryptedText = btoa(textWithDate);
             console.log("Encrypted Text: " + encryptedText);
 
             // Create QR Code with encrypted text

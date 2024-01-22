@@ -10,9 +10,11 @@ $role     = $_POST['role']; // Retrieve the selected role from the dropdown
 $query = mysqli_query($conn, "SELECT * FROM user WHERE username='$username' AND password='$password' AND role='$role'");
 $data = mysqli_fetch_assoc($query);
 
-// var_dump($data['nama']);die;
+// var_dump($_SESSION['nis']);die;
 if (mysqli_num_rows($query) == 1) { // If the user exists
     $_SESSION['nama'] = $data['nama'];
+    $_SESSION['nis'] = $data['username'];
+    $_SESSION['role'] = $data['role'];
 
     // Redirect based on user role
     switch ($role) {

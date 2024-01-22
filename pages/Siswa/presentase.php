@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . "/../../conf/conn.php";
 
 // Dapatkan tanggal awal dan akhir bulan saat ini
@@ -9,10 +10,19 @@ $end_date = date('Y-m-t', strtotime($today['year'] . '-' . $today['mon'] . '-01'
 // Hitung total hari pada bulan ini
 $total_days_in_month = cal_days_in_month(CAL_GREGORIAN, $today['mon'], $today['year']);
 
-$query = "SELECT siswa.nis, siswa.nama_siswa, siswa.kelas, siswa.jurusan, COUNT(*) as total_hadir
+if($_SESSION['role'] === 'siswa'){
+    $nis_session = isset($_SESSION['nis']) ? $_SESSION['nis'] : '';
+    $query = "SELECT siswa.nis, siswa.nama_siswa, siswa.kelas, siswa.jurusan, COUNT(*) as total_hadir
+          FROM siswa
+          LEFT JOIN checkin ON siswa.nis = checkin.nis AND checkin.tanggal BETWEEN '$start_date' AND '$end_date'
+          WHERE siswa.nis = '$nis_session'
+          GROUP BY siswa.nis";
+} else {
+    $query = "SELECT siswa.nis, siswa.nama_siswa, siswa.kelas, siswa.jurusan, COUNT(*) as total_hadir
           FROM siswa
           LEFT JOIN checkin ON siswa.nis = checkin.nis AND checkin.tanggal BETWEEN '$start_date' AND '$end_date'
           GROUP BY siswa.nis";
+}
 $result = $conn->query($query);
 
 ?>

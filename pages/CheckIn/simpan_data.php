@@ -6,24 +6,20 @@ $db = "opticheck";
 
 $conn = mysqli_connect($host, $user, $password, $db);
 
-//Cek Koneksi
+// Cek Koneksi
 if (!$conn) {
     die("Koneksi Gagal: " . mysqli_connect_error());
 }
-//echo "Koneksi ke database sukses..";
 
 // Terima data dari AJAX
 $nis = isset($_POST['nis']) ? $_POST['nis'] : '';
 $tanggal = isset($_POST['tanggal']) ? $_POST['tanggal'] : '';
-$jam = isset($_POST['jam']) ? $_POST['jam'] : '';
 
-// Lakukan penyimpanan data ke dalam tabel (gantilah sesuai dengan struktur tabel Anda)
-$sql = "INSERT INTO checkin (nis, tanggal, jam) VALUES ('$nis', '$tanggal', '$jam')";
+// Menggunakan CURRENT_TIME() untuk mendapatkan waktu saat ini di sisi database
+$sql = "INSERT INTO checkin (nis, tanggal, jam) VALUES ('$nis', '$tanggal', CURRENT_TIME())";
 
-if (!empty($nis) && !empty($tanggal) && !empty($jam)) {
+if (!empty($nis) && !empty($tanggal)) {
     // Lakukan penyimpanan data ke dalam tabel (gantilah sesuai dengan struktur tabel Anda)
-    $sql = "INSERT INTO checkin (nis, tanggal, jam) VALUES ('$nis', '$tanggal', '$jam')";
-
     if ($conn->query($sql) === TRUE) {
         echo "Data berhasil disimpan";
     } else {
@@ -32,7 +28,6 @@ if (!empty($nis) && !empty($tanggal) && !empty($jam)) {
 } else {
     echo "Data tidak lengkap";
 }
-
 
 // Tutup koneksi
 $conn->close();

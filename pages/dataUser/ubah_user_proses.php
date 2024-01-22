@@ -22,7 +22,7 @@ if ($_POST) {
     if (!mysqli_stmt_execute($stmt)) {
         die(mysqli_error($conn)); // Tangani kesalahan dengan memberikan pesan yang jelas
     } else {
-        echo '<script>alert("Data Berhasil Diupdate !!!"); window.location.href="../Admin/indexAdmin.php"</script>';
+        echo '<script>alert("Data Berhasil Diupdate !!!"); window.location.href="../Admin/indexAdmin?page=data_user"</script>';
     }
 
     mysqli_stmt_close($stmt);

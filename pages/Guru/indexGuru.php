@@ -262,15 +262,15 @@ session_start();
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="../../conf/logout.php" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
                     </ul>
-                    <li class="nav-item">
-                        <a href="../../conf/logout.php" class="nav-link">
-                            <i class="nav-icon fas fa-sign-out"></i>
-                            <p>
-                                Logout
-                            </p>
-                        </a>
-                    </li>
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>
