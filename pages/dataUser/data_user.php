@@ -24,7 +24,7 @@
                                 <tr>
                                     <th>NO</th>
                                     <th>Nama</th>
-                                    <th>Username</th>
+                                    <th>NIS / NIY</th>
                                     <th>Password</th>
                                     <th>Role</th>
                                     <th>Dibuat</th>
