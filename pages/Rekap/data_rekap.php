@@ -17,9 +17,6 @@ $query = mysqli_query($conn, "SELECT siswa.nis, siswa.nama_siswa, siswa.kelas, s
         <h1>
             DATA REKAP KEHADIRAN SISWA
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">DATA REKAP KEHADIRAN SISWA</li>
-        </ol>
     </section>
 
     <!-- Main content -->

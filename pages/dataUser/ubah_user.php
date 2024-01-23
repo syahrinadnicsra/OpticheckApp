@@ -13,9 +13,6 @@ $row = mysqli_fetch_array($query);
         <h1>
             UBAH DATA USER
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">UBAH USER</li>
-        </ol>
     </section>
 
     <!-- Main content -->
@@ -38,8 +35,8 @@ $row = mysqli_fetch_array($query);
                                 <input type="text" name="nama" class="form-control" placeholder="Nama" required>
                             </div>
                             <div class="form-group col-xs-12 col-sm-6">
-                                <label>username</label>
-                                <input type="text" name="username" class="form-control" placeholder="Username" required>
+                                <label>NIS / NIY</label>
+                                <input type="text" name="username" class="form-control" placeholder="NIS / NIY" required>
                             </div>
                             <div class="form-group col-xs-12 col-sm-6">
                                 <label>Password</label>

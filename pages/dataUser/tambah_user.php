@@ -5,9 +5,6 @@
         <h1>
             TAMBAH USER
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">TAMBAH USER </li>
-        </ol>
     </section>
     <!-- Main content -->
     <section class="content">
@@ -33,8 +30,8 @@
                                     <input type="text" name="nama" class="form-control" placeholder="Nama" required>
                                 </div>
                                 <div class="form-group col-xs-12 col-sm-6">
-                                    <label>username</label>
-                                    <input type="text" name="username" class="form-control" placeholder="Username" required>
+                                    <label>NIS / NIY</label>
+                                    <input type="text" name="username" class="form-control" placeholder="NIS / NIY" required>
                                 </div>
                                 <div class="form-group col-xs-12 col-sm-6">
                                     <label>Password</label>

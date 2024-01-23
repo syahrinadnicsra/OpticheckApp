@@ -5,9 +5,6 @@
         <h1>
             DATA USER
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">DATA USER</li>
-        </ol>
     </section>
 
     <!-- Main content -->
@@ -24,7 +21,7 @@
                                 <tr>
                                     <th>NO</th>
                                     <th>Nama</th>
-                                    <th>Username</th>
+                                    <th>NIS / NIY</th>
                                     <th>Password</th>
                                     <th>Role</th>
                                     <th>Dibuat</th>

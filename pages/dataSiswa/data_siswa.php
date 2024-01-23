@@ -5,9 +5,6 @@
         <h1>
             DATA SISWA
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">DATA SISWA</li>
-        </ol>
     </section>
 
     <!-- Main content -->

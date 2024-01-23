@@ -13,9 +13,6 @@ $row = mysqli_fetch_array($query);
         <h1>
             UBAH DATA SISWA
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">UBAH SISWA</li>
-        </ol>
     </section>
 
     <!-- Main content -->

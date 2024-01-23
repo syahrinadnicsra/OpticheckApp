@@ -5,9 +5,6 @@
         <h1>
             TAMBAH DATA SISWA
         </h1>
-        <!-- <ol class="breadcrumb">
-            <li class="active">TAMBAH DATA SISWA </li>
-        </ol> -->
     </section>
     <!-- Main content -->
     <section class="content">
