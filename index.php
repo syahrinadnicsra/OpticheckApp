@@ -33,7 +33,7 @@
 
                 <form action="conf/auth_login.php" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" name="username" required>
+                        <input type="text" class="form-control" placeholder="NIS / NIY" name="username" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -61,7 +61,10 @@
                             </div>
                         </div>
                     </div>
-
+                    <br>
+                    <h6>Siswa : Gunakan Nomor Induk Siswa (NIS)</h6>
+                    <h6>Guru : Gunakan Nomor Induk Yayasan (NIY)</h6>
+                    <br>
                     <div class="row">
                         <div class="col-8">
                             <!-- <div class="icheck-primary">
