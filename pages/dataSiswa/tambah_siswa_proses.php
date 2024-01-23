@@ -11,6 +11,6 @@ if ($_POST) {
     if (!mysqli_query($conn, $query)) {
         die(mysql_error);
     } else {
-        echo '<script>alert("Data Berhasil Ditambahkan !!!"); window.location.href="../Admin/indexAdmin.php"</script>';
+        echo '<script>alert("Data Berhasil Ditambahkan !!!"); window.location.href="../Admin/indexAdmin.php?page=data_siswa"</script>';
     }
 }

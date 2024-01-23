@@ -61,7 +61,10 @@
                             </div>
                         </div>
                     </div>
-
+                    <br>
+                    <h6>Siswa : Gunakan Nomor Induk Siswa (NIS)</h6>
+                    <h6>Guru : Gunakan Nomor Induk Yayasan (NIY)</h6>
+                    <br>
                     <div class="row">
                         <div class="col-8">
                             <!-- <div class="icheck-primary">
