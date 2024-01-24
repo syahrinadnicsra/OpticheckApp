@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2024 at 04:00 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 24 Jan 2024 pada 02.04
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `checkin`
+-- Struktur dari tabel `checkin`
 --
 
 CREATE TABLE `checkin` (
@@ -34,10 +34,17 @@ CREATE TABLE `checkin` (
   `jam` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `checkin`
+--
+
+INSERT INTO `checkin` (`id`, `nis`, `tanggal`, `jam`) VALUES
+(18, 2110809, '2024-01-24', '07:59:22');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `checkout`
+-- Struktur dari tabel `checkout`
 --
 
 CREATE TABLE `checkout` (
@@ -47,10 +54,17 @@ CREATE TABLE `checkout` (
   `jam` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `checkout`
+--
+
+INSERT INTO `checkout` (`id`, `nis`, `tanggal`, `jam`) VALUES
+(18, 2110809, '2024-01-24', '08:01:04');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `izinsiswa`
+-- Struktur dari tabel `izinsiswa`
 --
 
 CREATE TABLE `izinsiswa` (
@@ -64,10 +78,17 @@ CREATE TABLE `izinsiswa` (
   `bukti` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `izinsiswa`
+--
+
+INSERT INTO `izinsiswa` (`id`, `nis`, `nama_siswa`, `kelas`, `jurusan`, `jenis_kelamin`, `alasan`, `bukti`) VALUES
+(4, 2110809, 'Afriska', 'XII', 'TAV', 'P', 'lomba', 'download.jpg');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `siswa`
+-- Struktur dari tabel `siswa`
 --
 
 CREATE TABLE `siswa` (
@@ -79,10 +100,17 @@ CREATE TABLE `siswa` (
   `jenis_kelamin` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `siswa`
+--
+
+INSERT INTO `siswa` (`id`, `nis`, `nama_siswa`, `kelas`, `jurusan`, `jenis_kelamin`) VALUES
+(9, 2110809, 'Afriska', 'XII', 'TAV', 'P');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -95,79 +123,81 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `created_date`) VALUES
-(1, 'Admin Opticheck', 'admin', '101010', 'admin', '2024-01-18');
+(1, 'Admin Opticheck', 'admin', '101010', 'admin', '2024-01-18'),
+(6, 'Guru', '112233', 'guru', 'guru', '2024-01-24'),
+(7, 'Afriska', '2110809', '2110809', 'siswa', '2024-01-24');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `checkin`
+-- Indeks untuk tabel `checkin`
 --
 ALTER TABLE `checkin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `checkout`
+-- Indeks untuk tabel `checkout`
 --
 ALTER TABLE `checkout`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `izinsiswa`
+-- Indeks untuk tabel `izinsiswa`
 --
 ALTER TABLE `izinsiswa`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `siswa`
+-- Indeks untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `checkin`
+-- AUTO_INCREMENT untuk tabel `checkin`
 --
 ALTER TABLE `checkin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `checkout`
+-- AUTO_INCREMENT untuk tabel `checkout`
 --
 ALTER TABLE `checkout`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `izinsiswa`
+-- AUTO_INCREMENT untuk tabel `izinsiswa`
 --
 ALTER TABLE `izinsiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `siswa`
+-- AUTO_INCREMENT untuk tabel `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
