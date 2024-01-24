@@ -69,7 +69,7 @@ $result = $conn->query($query);
                                 echo "<td>" . $row['jurusan'] . "</td>";
 
                                 $attendance_percentage = ($total_days_in_month > 0) ? ($row['total_hadir'] / $total_days_in_month) * 100 : 0;
-                                echo "<td>" . number_format($attendance_percentage, 2) . "%</td>";
+                                echo "<td>" . number_format($attendance_percentage, 1) . "%</td>";
 
                                 echo "</tr>";
                             }
