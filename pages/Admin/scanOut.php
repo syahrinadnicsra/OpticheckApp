@@ -248,20 +248,34 @@
                 },
                 success: function(response) {
                     // Jika data sudah ada, tampilkan pesan
-                    if (response === 'sudah_absen') {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Anda sudah melakukan absen!',
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
+                    if (response === '2') {
+                            console.log('Masuk kondisi nis tidak ada');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'NIS tidak ditemukan!',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
 
-                        // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
-                        setTimeout(function() {
-                            document.getElementById('result').innerHTML = '';
-                            startScanner();
-                        }, 1500);
-                    } else {
+                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                            setTimeout(function() {
+                                document.getElementById('result').innerHTML = '';
+                                startScanner();
+                            }, 1500);
+                    } else if (response === '1') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Anda sudah melakukan absen!',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                    // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                    setTimeout(function() {
+                        document.getElementById('result').innerHTML = '';
+                        startScanner();
+                    }, 1500);
+                    } else if (response === '0') {
                         // Jika data belum ada, lakukan penyimpanan
                         $.ajax({
                             type: 'POST',

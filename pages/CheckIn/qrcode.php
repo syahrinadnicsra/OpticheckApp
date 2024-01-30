@@ -93,6 +93,14 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
+                            <a href="?page=dashboardSiswa" class="nav-link">
+                                <i class="nav-icon fa-solid fa-table-columns"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="?page=presentase" class="nav-link">
                                 <i class="nav-icon fa-solid fa-book-open-reader"></i>
                                 <p>

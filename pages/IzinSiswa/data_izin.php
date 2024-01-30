@@ -1,15 +1,14 @@
 <?php
-    require_once __DIR__ . "/../../conf/conn.php";
+require_once __DIR__ . "/../../conf/conn.php";
 
-    $no = 0;
+$no = 0;
 
-    if($_SESSION['role'] === 'siswa'){
-        $nis = mysqli_real_escape_string($conn, $_SESSION['nis']);
+$nis_session = isset($_SESSION['nis']) ? $_SESSION['nis'] : '';
 
-        $query = mysqli_query($conn, "SELECT * FROM izinSiswa WHERE nis = '$nis' ORDER BY id DESC");
-    } else {
-        $query = mysqli_query($conn, "SELECT * FROM izinSiswa ORDER BY id DESC");
-    }
+// Query untuk mendapatkan data izinsiswa
+$query = "SELECT * FROM izinsiswa
+          WHERE nis = '$nis_session'";
+$result = $conn->query($query);
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -19,9 +18,6 @@
         <h1>
             Form Izin Tidak Hadir
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">Masukkan informasi untuk izin tidak hadir</li>
-        </ol>
     </section>
 
     <!-- Main content -->
@@ -33,44 +29,44 @@
                         <a href="?page=tambah_izin" class="btn btn-primary" role="button" title="Tambah Data"><i class="glyphicon glyphicon-plus"></i> Tambah</a>
                     </div>
                     <div class="card-body box-body table-responsive">
-                        <table id="example1" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nomor Induk Siswa</th>
-                                    <th>Nama Siswa</th>
-                                    <th>Kelas</th>
-                                    <th>Jurusan</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Alasan Tidak Hadir</th>
-                                    <th>Upload Bukti Izin</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <?php
-                                while ($row = mysqli_fetch_array($query)) {
-                                ?>
-                                    <tr>
-                                        <td><?php echo $no = $no + 1; ?></td>
-                                        <td><?php echo $row['nis']; ?></td>
-                                        <td><?php echo $row['nama_siswa']; ?></td>
-                                        <td><?php echo $row['kelas']; ?></td>
-                                        <td><?php echo $row['jurusan']; ?></td>
-                                        <td><?php echo $row['jenis_kelamin']; ?></td>
-                                        <td><?php echo $row['alasan']; ?></td>
-                                        <td><img src="../IzinSiswa/images/<?php echo $row['bukti']; ?>" style="width: 100px"></td>
-                                        <td>
-                                            <a href=" ?page=ubah_izin&id=<?= $row['id']; ?>" class="btn btn-success" role="button" title="Ubah Data"><i class="glyphicon glyphicon-edit">Edit</i></a>
-                                            <a href="../izinSiswa/hapus_izin.php?id=<?= $row['id']; ?>" class="btn btn-danger" role="button" title="Hapus Data"><i class="glyphicon glyphicon-trash">Hapus</i></a>
-                                        </td>
-                                    </tr>
-
-                                <?php } ?>
-
-                            </tbody>
-                        </table>
+                    <table id="example1" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nomor Induk Siswa</th>
+                                <th>Nama Siswa</th>
+                                <th>Kelas</th>
+                                <th>Jurusan</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Alasan Tidak Hadir</th>
+                                <th>Upload Bukti Izin</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $no++;
+                                echo "<tr>";
+                                echo "<td>{$no}</td>";
+                                echo "<td>{$row['nis']}</td>";
+                                echo "<td>{$row['nama_siswa']}</td>";
+                                echo "<td>{$row['kelas']}</td>";
+                                echo "<td>{$row['jurusan']}</td>";
+                                echo "<td>{$row['jenis_kelamin']}</td>";
+                                echo "<td>{$row['alasan']}</td>";
+                                echo "<td><img src='../IzinSiswa/images/{$row['bukti']}' style='width: 100px'></td>";
+                                echo "<td>";
+                                echo "<a href='?page=ubah_izin&id={$row['id']}' class='btn btn-success' role='button' title='Ubah Data'><i class='glyphicon glyphicon-edit'></i>Edit</a>";
+                                echo "<a href='../IzinSiswa/hapus_izin.php?id={$row['id']}' class='btn btn-danger' role='button' title='Hapus Data'><i class='glyphicon glyphicon-trash'></i>Hapus</a>";
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                        }
+                        ?>
+                        </tbody>
+                    </table>
                     </div>
                     <!-- /.box-body -->
                 </div>

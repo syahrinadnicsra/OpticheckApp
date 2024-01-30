@@ -1,32 +1,32 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "opticheck";
-
-$conn = mysqli_connect($host, $user, $password, $db);
-
-// Cek Koneksi
-if (!$conn) {
-    die("Koneksi Gagal: " . mysqli_connect_error());
-}
+require_once __DIR__ . "/../../conf/conn.php";
 
 // Terima data dari AJAX
 $nis = isset($_POST['nis']) ? $_POST['nis'] : '';
 $tanggal = isset($_POST['tanggal']) ? $_POST['tanggal'] : '';
 
-// Menggunakan CURRENT_TIME() untuk mendapatkan waktu saat ini di sisi database
-$sql = "INSERT INTO checkout (nis, tanggal, jam) VALUES ('$nis', '$tanggal', CURRENT_TIME())";
+// Temukan id_siswa berdasarkan nis
+$id_siswa_query = "SELECT id FROM siswa WHERE nis = '$nis'";
+$id_siswa_result = $conn->query($id_siswa_query);
 
-if (!empty($nis) && !empty($tanggal)) {
-    // Lakukan penyimpanan data ke dalam tabel (gantilah sesuai dengan struktur tabel Anda)
-    if ($conn->query($sql) === TRUE) {
-        echo "Data berhasil disimpan";
+if ($id_siswa_result->num_rows > 0) {
+    $row = $id_siswa_result->fetch_assoc();
+    $id_siswa = $row['id'];
+    // Gunakan id_siswa yang ditemukan untuk operasi INSERT INTO
+    $sql = "INSERT INTO checkout (id_siswa, tanggal, jam) VALUES ('$id_siswa', '$tanggal', CURRENT_TIME())";
+
+    if (!empty($nis) && !empty($tanggal)) {
+        // Lakukan penyimpanan data ke dalam tabel checkin
+        if ($conn->query($sql) === TRUE) {
+            echo "Data berhasil disimpan";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Data tidak lengkap";
     }
 } else {
-    echo "Data tidak lengkap";
+    echo "ID siswa tidak ditemukan untuk NIS $nis";
 }
 
 // Tutup koneksi

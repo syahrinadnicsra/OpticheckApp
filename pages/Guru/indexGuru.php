@@ -34,6 +34,7 @@ session_start();
     <link rel="stylesheet" href="../../app/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../app/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="../../app/dist/css/adminlte.min.css">
+    
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -51,12 +52,6 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -64,7 +59,7 @@ session_start();
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="#" class="brand-link">
                 <img src="../../app/dist/img/logoapp.png" alt="Logo Opticheck" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light-bold">Opticheck</span>
             </a>
@@ -150,9 +145,8 @@ session_start();
 
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2023 <a href="https://adminlte.io">Syahrina Dini Caesara</a>.</strong>
+            <strong>Copyright &copy; <a href="https://adminlte.io">Syahrina Dini Caesara</a>.</strong>
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
             </div>
         </footer>
 
@@ -164,6 +158,8 @@ session_start();
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+<!-- Include DataTables library -->
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
     <!-- jQuery -->
     <script src="../../app/plugins/jquery/jquery.min.js"></script>

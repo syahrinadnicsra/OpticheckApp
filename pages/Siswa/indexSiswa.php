@@ -155,7 +155,7 @@ session_start();
                 if (isset($_GET['page'])) {
                     if ($_GET['page'] == 'tambah_izin') {
                         include __DIR__ . "/../../pages/izinSiswa/tambah_izin.php";
-                    } elseif ($_GET['page'] == 'ubah_siswa') {
+                    } elseif ($_GET['page'] == 'ubah_izin') {
                         include __DIR__ . "/../../pages/izinSiswa/ubah_izin.php";
                     } elseif ($_GET['page'] == 'inputdataSiswa') {
                         include __DIR__ . "/../../pages/CheckIn/inputdataSiswa.php";
@@ -165,6 +165,8 @@ session_start();
                         include __DIR__ . "/../../pages/Siswa/presentase.php";
                     } elseif ($_GET['page'] == 'dashboardSiswa') {
                         include __DIR__ . "/../../pages/Siswa/dashboardSiswa.php";
+                    } elseif ($_GET['page'] == 'data_izin') {
+                        include __DIR__ . "/../../pages/izinSiswa/data_izin.php";
                     } else {
                         include __DIR__ . "/../../pages/izinSiswa/data_izin.php"; //
                     }
@@ -181,9 +183,8 @@ session_start();
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2023 <a href="https://adminlte.io">Syahrina Dini Caesara</a>.</strong>
+        <strong>Copyright &copy; <a href="https://adminlte.io">Syahrina Dini Caesara</a>.</strong>
         <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.2.0
         </div>
     </footer>
 

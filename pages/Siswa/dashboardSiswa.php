@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . "/../../conf/conn.php";
 
 // Dapatkan tanggal awal dan akhir bulan saat ini
@@ -11,34 +10,15 @@ $end_date = date('Y-m-t', strtotime($today['year'] . '-' . $today['mon'] . '-01'
 $total_days_in_month = cal_days_in_month(CAL_GREGORIAN, $today['mon'], $today['year']);
 
 $nis_session = isset($_SESSION['nis']) ? $_SESSION['nis'] : '';
-$query = "SELECT siswa.nis, siswa.nama_siswa, siswa.kelas, siswa.jurusan, COUNT(*) as total_hadir
-        FROM siswa
-        LEFT JOIN checkin ON siswa.nis = checkin.nis AND checkin.tanggal BETWEEN '$start_date' AND '$end_date'
-        WHERE siswa.nis = '$nis_session'
-        GROUP BY siswa.nis";
 
-$result = $conn->query($query);
+// Query to get student information
+$id_siswa_query = "SELECT id, nis, nama_siswa, kelas, jurusan
+                   FROM siswa
+                   WHERE nis = '$nis_session'";
 
+$result_siswa = $conn->query($id_siswa_query);
 
-
-
-// query tidak hadir
-// Query SQL untuk menghitung data berdasarkan nis
-// $sql = "SELECT
-//             c.nis,
-//             COUNT(c.nis) AS total_checkin,
-//             COUNT(co.nis) AS total_checkout
-//         FROM
-//             checkin c
-//         LEFT JOIN
-//             checkout co ON c.nis = co.nis
-//         WHERE
-//             c.nis = '$nis_session'
-//         GROUP BY
-//             c.nis";
-// $tidak_hadir = mysqli_query($conn, $sql);
 ?>
-
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -84,15 +64,37 @@ $result = $conn->query($query);
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                        <?php
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $attendance_percentage = ($total_days_in_month > 0) ? ($row['total_hadir'] / $total_days_in_month) * 100 : 0;
-                                    echo "<h3>" . number_format($attendance_percentage, 1) . "<sup style=\"font-size: 20px\">%</sup></h3>";
+                            <?php
+                            if ($result_siswa->num_rows > 0) {
+                                $row_siswa = $result_siswa->fetch_assoc();
+                                $id_siswa = $row_siswa['id'];
+
+                                // Query to get attendance information
+                                $query = "SELECT s.id_siswa, s.tanggal, s.jam, COUNT(s.id_siswa) as total_hadir
+                                            FROM checkin s
+                                            INNER JOIN siswa m ON s.id_siswa = m.id
+                                            WHERE s.id_siswa = '$id_siswa' AND s.tanggal BETWEEN '$start_date' AND '$end_date'
+                                            GROUP BY s.id_siswa";
+
+                                $result = $conn->query($query);
+
+                                // var_dump($id_siswa, $nis_session);
+                                // var_dump($row_siswa);
+                                $no = 1;
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $attendance_percentage = ($total_days_in_month > 0) ? ($row['total_hadir'] / $total_days_in_month) * 100 : 0;
+                                        echo "<h3>" . number_format($attendance_percentage, 1) . "<sup style=\"font-size: 20px\">%</sup></h3>";
+                                    }
+                                } else {
+                                    // Jika tidak ada data, tampilkan 0%
+                                    echo "<h3>0<sup style=\"font-size: 20px\">%</sup></h3>";
                                 }
                             } else {
-                                // Jika tidak ada data, tampilkan 0%
-                                echo "<h3>0.0<sup style=\"font-size: 20px\">%</sup></h3>";
+                                echo "<tr>";
+                                echo "<td colspan='6'>-</td>";
+                                echo "</tr>";
                             }
                             ?>
                             <p>Hadir</p>
@@ -108,27 +110,29 @@ $result = $conn->query($query);
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                        <?php
-                        if ($_SESSION['role'] === 'siswa') {
-                            $nis = mysqli_real_escape_string($conn, $_SESSION['nis']);
+                            <?php
+                            // Query untuk mendapatkan data izin dan menghitung jumlahnya
+                            $query_izin = "SELECT COUNT(*) as jumlah_izin
+                                        FROM izinsiswa
+                                        WHERE nis = '$nis_session'";
 
-                            // Menghitung jumlah izin berdasarkan nis
-                            $query_count = mysqli_query($conn, "SELECT COUNT(*) as total_izin FROM izinSiswa WHERE nis = '$nis'");
-                            $row_count = mysqli_fetch_assoc($query_count);
-                            $total_izin = $row_count['total_izin'];
+                            $result_izin = $conn->query($query_izin);
 
-                            if ($total_izin > 0) {
-                                // Ambil data izin
-                                $query = mysqli_query($conn, "SELECT * FROM izinSiswa WHERE nis = '$nis' ORDER BY id DESC");
+                            // Cek apakah query berhasil dieksekusi
+                            if ($result_izin) {
+                                // Ambil hasil query
+                                $row_izin = $result_izin->fetch_assoc();
 
-                                while ($row = mysqli_fetch_assoc($query)) {
-                                    echo "<h3>$total_izin</h3>";
-                                }
+                                // Ambil jumlah izin
+                                $jumlah_izin = $row_izin['jumlah_izin'];
                             } else {
-                                echo "<h3>0</h3>";
+                                // Jika query gagal, tampilkan pesan kesalahan
+                                echo "Error: " . $conn->error;
+                                // Inisialisasi jumlah izin menjadi 0
+                                $jumlah_izin = 0;
                             }
-                        }
-                        ?>
+                            ?>
+                            <h3><?php echo $jumlah_izin; ?></h3>
                             <p>Izin</p>
                         </div>
                         <div class="icon">
@@ -138,10 +142,10 @@ $result = $conn->query($query);
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <!-- <div class="col-lg-3 col-6"> -->
                     <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
+                    <!-- <div class="small-box bg-danger"> -->
+                        <!-- <div class="inner"> -->
                         <?php
                         // // Memeriksa apakah query berhasil dieksekusi
                         // if ($tidak_hadir) {
@@ -163,16 +167,16 @@ $result = $conn->query($query);
                         //     echo "Error: " . mysqli_error($conn);
                         // }
                         ?>
-                            <h3>0</h3>
+                            <!-- <h3>0</h3> -->
 
-                            <p>Tidak Hadir</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa-solid fa-person-circle-question"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
+                            <!-- <p>Tidak Hadir</p> -->
+                        <!-- </div> -->
+                        <!-- <div class="icon"> -->
+                            <!-- <i class="fa-solid fa-person-circle-question"></i> -->
+                        <!-- </div> -->
+                        <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
                 <!-- ./col -->
             </div>
             <!-- /.row -->

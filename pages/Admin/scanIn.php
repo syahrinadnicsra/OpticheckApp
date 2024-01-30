@@ -238,22 +238,98 @@
             //     jam: jam
             // });
 
-            // Melakukan pengecekan apakah data sudah ada sebelumnya
-            $.ajax({
-                type: 'POST',
-                url: '../CheckIn/cek_data.php', // Ganti dengan URL yang sesuai untuk cek_data.php
-                data: {
-                    nis: nis,
-                    tanggal: tanggal
-                },
-                success: function(response) {
-                    // Jika data sudah ada, tampilkan pesan
-                    if (response === 'sudah_absen') {
+                // Melakukan pengecekan apakah data sudah ada sebelumnya
+                $.ajax({
+                    type: 'POST',
+                    url: '../CheckIn/cek_data.php', // Ganti dengan URL yang sesuai untuk cek_data.php
+                    data: {
+                        nis: nis,
+                        tanggal: tanggal
+                    },
+                    success: function(response) {
+                        // Jika data sudah ada, tampilkan pesan
+                        if (response === '2') {
+                            console.log('Masuk kondisi nis tidak ada');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'NIS tidak ditemukan!',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+
+                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                            setTimeout(function() {
+                                document.getElementById('result').innerHTML = '';
+                                startScanner();
+                            }, 1500);
+                        } else if (response === '1') {
+                            console.log('Masuk kondisi sudah absen');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Anda sudah melakukan absen!',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+
+                            // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                            setTimeout(function() {
+                                document.getElementById('result').innerHTML = '';
+                                startScanner();
+                            }, 1500);
+                        } else if (response === '0') {
+                            // Jika data belum ada, lakukan penyimpanan
+                            $.ajax({
+                                type: 'POST',
+                                url: '../CheckIn/simpan_data.php',
+                                data: {
+                                    nis: nis,
+                                    tanggal: tanggal,
+                                    jam: jam
+                                },
+                                success: function(response) {
+                                    // Menampilkan SweetAlert berhasil
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Absen berhasil disimpan!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+
+                                    // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                                    setTimeout(function() {
+                                        document.getElementById('result').innerHTML = '';
+                                        startScanner();
+                                    }, 1500);
+                                },
+                                error: function(error) {
+                                    console.error('Error:', error);
+
+                                    // Menampilkan SweetAlert gagal
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Gagal menyimpan data!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+
+                                    // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
+                                    setTimeout(function() {
+                                        document.getElementById('result').innerHTML = '';
+                                        startScanner();
+                                    }, 1500);
+                                }
+                            });
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+
+                        // Menampilkan SweetAlert gagal
                         Swal.fire({
-                            icon: 'warning',
-                            title: 'Anda sudah melakukan absen!',
+                            icon: 'error',
+                            title: 'Gagal memeriksa data!',
                             showConfirmButton: false,
-                            timer: 3000
+                            timer: 1500
                         });
 
                         // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
@@ -261,70 +337,9 @@
                             document.getElementById('result').innerHTML = '';
                             startScanner();
                         }, 1500);
-                    } else {
-                        // Jika data belum ada, lakukan penyimpanan
-                        $.ajax({
-                            type: 'POST',
-                            url: '../CheckIn/simpan_data.php',
-                            data: {
-                                nis: nis,
-                                tanggal: tanggal,
-                                jam: jam
-                            },
-                            success: function(response) {
-                                // Menampilkan SweetAlert berhasil
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Absen berhasil disimpan!',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-
-                                // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
-                                setTimeout(function() {
-                                    document.getElementById('result').innerHTML = '';
-                                    startScanner();
-                                }, 1500);
-                            },
-                            error: function(error) {
-                                console.error('Error:', error);
-
-                                // Menampilkan SweetAlert gagal
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Gagal menyimpan data!',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-
-                                // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
-                                setTimeout(function() {
-                                    document.getElementById('result').innerHTML = '';
-                                    startScanner();
-                                }, 1500);
-                            }
-                        });
                     }
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-
-                    // Menampilkan SweetAlert gagal
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal memeriksa data!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-
-                    // Set timeout untuk membersihkan hasil scan dan bersiap untuk scan berikutnya
-                    setTimeout(function() {
-                        document.getElementById('result').innerHTML = '';
-                        startScanner();
-                    }, 1500);
-                }
-            });
-        }
+                });
+            }
 
 
 

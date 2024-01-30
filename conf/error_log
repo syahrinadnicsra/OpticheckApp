@@ -1,0 +1,6 @@
+[25-Jan-2024 00:29:46 UTC] PHP Warning:  Undefined array key "username" in /home/optichec/public_html/conf/auth_login.php on line 5
+[25-Jan-2024 00:29:46 UTC] PHP Warning:  Undefined array key "password" in /home/optichec/public_html/conf/auth_login.php on line 6
+[25-Jan-2024 00:29:46 UTC] PHP Warning:  Undefined array key "role" in /home/optichec/public_html/conf/auth_login.php on line 7
+[25-Jan-2024 01:05:48 UTC] PHP Warning:  Undefined array key "username" in /home/optichec/public_html/conf/auth_login.php on line 5
+[25-Jan-2024 01:05:48 UTC] PHP Warning:  Undefined array key "password" in /home/optichec/public_html/conf/auth_login.php on line 6
+[25-Jan-2024 01:05:48 UTC] PHP Warning:  Undefined array key "role" in /home/optichec/public_html/conf/auth_login.php on line 7
